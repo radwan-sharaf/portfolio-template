@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Radwan Sharaf - Elite Flutter Developer & Cybersecurity Researcher crafting secure, beautiful mobile experiences">
+    <meta name="author" content="Radwan Sharaf">
+    <meta name="keywords" content="Flutter Developer, Cybersecurity, Mobile Development, Python, Damascus">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.tailwindcss.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- Theme & PWA -->
+    <meta name="theme-color" content="#0D0D0D">
+    <link rel="manifest" href="/manifest.json">
+    
+    <title>Radwan Sharaf - Elite Developer & Security Researcher</title>
+    
+    <!-- Distinctive Font Pairing: Editorial Display + Technical Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        /* ============================================
+           DESIGN SYSTEM: "Editorial Minimalism Meets Tech Precision"
+           Aesthetic: Refined, architectural, high-contrast, asymmetric
+           ============================================ */
+        
+        :root {
+            /* Color Palette: Monochrome with Strategic Accent */
+            --color-bg-primary: #0D0D0D;
+            --color-bg-secondary: #1A1A1A;
+            --color-text-primary: #FAFAFA;
+            --color-text-secondary: #B3B3B3;
+            --color-accent: #FF4D00;
+            --color-accent-muted: #CC3D00;
+            --color-border: #2A2A2A;
+            
+            /* Typography Scale */
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Cormorant Garamond', serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            
+            /* Spacing System */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 8rem;
+            
+            /* Motion */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar - Minimalist */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-primary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 4px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        .text-display {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            line-height: 0.95;
+        }
+        
+        .text-headline {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+        }
+        
+        .text-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+        }
+        
+        .text-body {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+        
+        .text-mono {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Accent Text Effect */
+        .accent-text {
+            color: var(--color-accent);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .accent-underline {
+            position: relative;
+        }
+        
+        .accent-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 2px;
+            background: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-base);
+        }
+        
+        .accent-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+        
+        .section {
+            padding: var(--spacing-xl) 0;
+            position: relative;
+        }
+        
+        /* Card Component */
+        .card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            padding: var(--spacing-md);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-base);
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-4px);
+        }
+        
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-accent-muted);
+            border-color: var(--color-accent-muted);
+            transform: translateX(4px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--color-text-primary);
+            color: var(--color-text-primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-text-primary);
+            color: var(--color-bg-primary);
+        }
+        
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        /* Decorative Elements */
+        .decorative-line {
+            width: 60px;
+            height: 2px;
+            background: var(--color-accent);
+            margin: var(--spacing-sm) 0;
+        }
+        
+        .decorative-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 var(--spacing-xs);
+        }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Focus States */
+        *:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 4px;
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Performance Optimization */
+        .will-change-transform {
+            will-change: transform;
+        }
+        
+        .gpu-accelerated {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback, memo } = React;
+
+        /* ============================================
+           UTILITY FUNCTIONS
+           ============================================ */
+        
+        // Sanitize input to prevent XSS
+        const sanitizeInput = (input) => {
+            const div = document.createElement('div');
+            div.textContent = input;
+            return div.innerHTML;
+        };
+        
+        // Debounce function for performance
+        const debounce = (func, wait) => {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+        
+        // Intersection Observer hook for lazy loading
+        const useIntersectionObserver = (ref, options = {}) => {
+            const [isIntersecting, setIsIntersecting] = useState(false);
+            
+            useEffect(() => {
+                if (!ref.current) return;
+                
+                const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) {
+                        setIsIntersecting(true);
+                        observer.disconnect();
+                    }
+                }, options);
+                
+                observer.observe(ref.current);
+                
+                return () => observer.disconnect();
+            }, [ref, options]);
+            
+            return isIntersecting;
+        };
+
+        /* ============================================
+           NAVIGATION COMPONENT
+           ============================================ */
+        
+        const Navigation = memo(() => {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [activeSection, setActiveSection] = useState('home');
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+            
+            useEffect(() => {
+                const handleScroll = debounce(() => {
+                    setIsScrolled(window.scrollY > 50);
+                    
+                    const sections = ['home', 'about', 'skills', 'work', 'contact'];
+                    const current = sections.find(section => {
+                        const element = document.getElementById(section);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            return rect.top <= 100 && rect.bottom >= 100;
+                        }
+                        return false;
+                    });
+                    if (current) setActiveSection(current);
+                }, 50);
+                
+                window.addEventListener('scroll', handleScroll, { passive: true });
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+            
+            const navItems = [
+                { id: 'home', label: 'Home' },
+                { id: 'about', label: 'About' },
+                { id: 'skills', label: 'Skills' },
+                { id: 'work', label: 'Work' },
+                { id: 'contact', label: 'Contact' }
+            ];
+            
+            return (
+                <nav 
+                    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                        isScrolled ? 'bg-black/90 backdrop-blur-sm border-b border-gray-800' : 'bg-transparent'
+                    }`}
+                    role="navigation"
+                    aria-label="Main navigation"
+                >
+                    <div className="container">
+                        <div className="flex justify-between items-center py-6">
+                            {/* Logo */}
+                            <a 
+                                href="#home" 
+                                className="text-2xl font-bold text-mono accent-text"
+                                aria-label="Radwan Sharaf - Home"
+                            >
+                                RS
+                            </a>
+                            
+                            {/* Desktop Navigation */}
+                            <div className="hidden md:flex items-center gap-8">
+                                {navItems.map(item => (
+                                    <a
+                                        key={item.id}
+                                        href={`#${item.id}`}
+                                        className={`text-mono transition-colors ${
+                                            activeSection === item.id 
+                                                ? 'text-accent-text' 
+                                                : 'text-text-secondary hover:text-text-primary'
+                                        }`}
+                                        aria-current={activeSection === item.id ? 'page' : undefined}
+                                    >
+                                        {item.label}
+                                    </a>
+                                ))}
+                            </div>
+                            
+                            {/* Mobile Menu Button */}
+                            <button
+                                className="md:hidden text-white p-2 focus:outline-none"
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                aria-label="Toggle mobile menu"
+                                aria-expanded={isMobileMenuOpen}
+                            >
+                                <svg 
+                                    width="24" 
+                                    height="24" 
+                                    viewBox="0 0 24 24" 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    strokeWidth="2"
+                                >
+                                    {isMobileMenuOpen ? (
+                                        <path d="M6 18L18 6M6 6l12 12" />
+                                    ) : (
+                                        <path d="M3 12h18M3 6h18M3 18h18" />
+                                    )}
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        {/* Mobile Menu */}
+                        {isMobileMenuOpen && (
+                            <div className="md:hidden py-4 border-t border-gray-800">
+                                {navItems.map(item => (
+                                    <a
+                                        key={item.id}
+                                        href={`#${item.id}`}
+                                        className="block py-3 text-mono text-text-secondary hover:text-accent transition-colors"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        {item.label}
+                                    </a>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </nav>
+            );
+        });
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        
+        const HeroSection = () => {
+            const [displayText, setDisplayText] = useState('');
+            const [phraseIndex, setPhraseIndex] = useState(0);
+            const phrases = [
+                'Flutter Developer',
+                'Python Enthusiast',
+                'Security Researcher',
+                'Mobile Architect'
+            ];
+            
+            useEffect(() => {
+                let currentIndex = 0;
+                let isDeleting = false;
+                let timeoutId;
+                
+                const type = () => {
+                    const currentPhrase = phrases[phraseIndex];
+                    
+                    if (!isDeleting) {
+                        setDisplayText(currentPhrase.substring(0, currentIndex + 1));
+                        currentIndex++;
+                        
+                        if (currentIndex === currentPhrase.length) {
+                            isDeleting = true;
+                            timeoutId = setTimeout(type, 2000);
+                            return;
+                        }
+                        timeoutId = setTimeout(type, 100);
+                    } else {
+                        setDisplayText(currentPhrase.substring(0, currentIndex - 1));
+                        currentIndex--;
+                        
+                        if (currentIndex === 0) {
+                            isDeleting = false;
+                            setPhraseIndex((prev) => (prev + 1) % phrases.length);
+                        }
+                        timeoutId = setTimeout(type, 50);
+                    }
+                };
+                
+                type();
+                return () => clearTimeout(timeoutId);
+            }, [phraseIndex]);
+            
+            return (
+                <section 
+                    id="home" 
+                    className="section min-h-screen flex items-center justify-center relative"
+                    role="banner"
+                >
+                    <div className="container">
+                        <div className="max-w-5xl mx-auto">
+                            {/* Status Badge */}
+                            <div className="opacity-0 animate-fade-in mb-8" style={{ animationDelay: '0.2s' }}>
+                                <span className="inline-flex items-center gap-2 px-4 py-2 border border-accent text-accent text-mono text-xs">
+                                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                                    AVAILABLE FOR OPPORTUNITIES
+                                </span>
+                            </div>
+                            
+                            {/* Main Heading */}
+                            <h1 className="text-display mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                                Radwan Sharaf
+                            </h1>
+                            
+                            {/* Typed Text */}
+                            <div className="opacity-0 animate-fade-in-up mb-12" style={{ animationDelay: '0.6s' }}>
+                                <p className="text-title text-text-secondary">
+                                    <span className="accent-text text-mono">{displayText}</span>
+                                    <span className="animate-pulse">|</span>
+                                </p>
+                            </div>
+                            
+                            {/* Description */}
+                            <div className="opacity-0 animate-fade-in-up mb-12" style={{ animationDelay: '0.8s' }}>
+                                <p className="text-body max-w-2xl text-text-secondary">
+                                    Crafting secure, elegant mobile experiences at the intersection of 
+                                    <span className="accent-text"> development</span> and 
+                                    <span className="accent-text"> cybersecurity</span>. 
+                                    Based in Damascus, working globally.
+                                </p>
+                            </div>
+                            
+                            {/* CTA Buttons */}
+                            <div className="opacity-0 animate-fade-in-up flex flex-wrap gap-4 mb-16" style={{ animationDelay: '1s' }}>
+                                <a href="#work" className="btn btn-primary" aria-label="View my work">
+                                    View Work
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                                <a href="#contact" className="btn btn-secondary" aria-label="Get in touch">
+                                    Get In Touch
+                                </a>
+                            </div>
+                            
+                            {/* Stats Grid */}
+                            <div className="opacity-0 animate-fade-in grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 border-t border-gray-800" style={{ animationDelay: '1.2s' }}>
+                                {[
+                                    { value: '7+', label: 'Projects' },
+                                    { value: '4+', label: 'Years Exp.' },
+                                    { value: '12+', label: 'Technologies' },
+                                    { value: '#2', label: 'Syria Rank' }
+                                ].map((stat, index) => (
+                                    <div key={index} className="text-center md:text-left">
+                                        <div className="text-headline accent-text mb-2">{stat.value}</div>
+                                        <div className="text-mono text-xs text-text-secondary">{stat.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Scroll Indicator */}
+                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 animate-fade-in" style={{ animationDelay: '1.5s' }}>
+                        <a href="#about" className="flex flex-col items-center gap-2 text-text-secondary hover:text-accent transition-colors" aria-label="Scroll to about section">
+                            <span className="text-mono text-xs">SCROLL</span>
+                            <svg width="20" height="30" viewBox="0 0 20 30" fill="none" stroke="currentColor" strokeWidth="2">
+                                <rect x="2" y="2" width="16" height="26" rx="8"/>
+                                <circle cx="10" cy="10" r="2">
+                                    <animate attributeName="cy" from="10" to="20" dur="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                        </a>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        
+        const AboutSection = () => {
+            const sectionRef = useRef(null);
+            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2 });
+            
+            return (
+                <section 
+                    id="about" 
+                    className="section"
+                    ref={sectionRef}
+                    role="region"
+                    aria-label="About me"
+                >
+                    <div className="container">
+                        {/* Section Header */}
+                        <div className={`max-w-4xl mx-auto mb-20 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                            <div className="decorative-line mb-6"></div>
+                            <h2 className="text-headline mb-6">
+                                About <span className="accent-text">Me</span>
+                            </h2>
+                            <p className="text-body text-text-secondary">
+                                A story of passion, precision, and perpetual learning
+                            </p>
+                        </div>
+                        
+                        {/* Content Grid */}
+                        <div className={`grid md:grid-cols-2 gap-12 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                            {/* Education Card */}
+                            <div className="card">
+                                <div className="flex items-start gap-4 mb-6">
+                                    <div className="text-4xl accent-text">🎓</div>
+                                    <div>
+                                        <h3 className="text-title mb-2">Education</h3>
+                                        <p className="text-mono text-xs text-text-secondary">YARMOUK PRIVATE UNIVERSITY</p>
+                                    </div>
+                                </div>
+                                <p className="text-body text-text-secondary mb-4">
+                                    4th-year Information Engineering student with a minor in Software Engineering. 
+                                    Expected graduation: <span className="accent-text">July 2027</span>
+                                </p>
+                                <div className="decorative-line"></div>
+                            </div>
+                            
+                            {/* Expertise Card */}
+                            <div className="card">
+                                <div className="flex items-start gap-4 mb-6">
+                                    <div className="text-4xl accent-text">⚡</div>
+                                    <div>
+                                        <h3 className="text-title mb-2">Expertise</h3>
+                                        <p className="text-mono text-xs text-text-secondary">FULL-STACK MOBILE & SECURITY</p>
+                                    </div>
+                                </div>
+                                <p className="text-body text-text-secondary mb-4">
+                                    Specializing in Flutter development and cybersecurity research. 
+                                    Bridging the gap between beautiful interfaces and robust security.
+                                </p>
+                                <div className="decorative-line"></div>
+                            </div>
+                            
+                            {/* Achievement Card - Full Width */}
+                            <div className="md:col-span-2 card">
+                                <div className="flex flex-col md:flex-row items-start gap-8">
+                                    <div className="flex items-start gap-4 flex-1">
+                                        <div className="text-4xl accent-text">🏆</div>
+                                        <div>
+                                            <h3 className="text-title mb-2">Achievement</h3>
+                                            <p className="text-mono text-xs text-text-secondary mb-4">FAVIKON RANKING 2025</p>
+                                            <p className="text-body text-text-secondary">
+                                                Ranked among Syria's top content creators in mobile development 
+                                                and IT categories, demonstrating thought leadership and technical excellence.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-8">
+                                        <div className="text-center">
+                                            <div className="text-headline accent-text mb-2">#2</div>
+                                            <p className="text-mono text-xs text-text-secondary">Mobile & Telecom</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-headline accent-text mb-2">#31</div>
+                                            <p className="text-mono text-xs text-text-secondary">IT Categories</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Timeline */}
+                        <div className={`max-w-4xl mx-auto mt-20 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
+                            <h3 className="text-title mb-12 text-center">
+                                <span className="accent-text">Journey</span> Milestones
+                            </h3>
+                            <div className="grid md:grid-cols-4 gap-8">
+                                {[
+                                    { year: '2023', title: 'Started Information Engineering' },
+                                    { year: '2024', title: 'First App Published' },
+                                    { year: '2025', title: 'Ranked #2 in Syria' },
+                                    { year: '2027', title: 'Expected Graduation' }
+                                ].map((milestone, index) => (
+                                    <div key={index} className="text-center">
+                                        <div className="w-full h-px bg-gray-800 mb-4 relative">
+                                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full"></div>
+                                        </div>
+                                        <div className="text-headline accent-text mb-2">{milestone.year}</div>
+                                        <p className="text-mono text-xs text-text-secondary">{milestone.title}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ============================================
+           SKILLS SECTION
+           ============================================ */
+        
+        const SkillsSection = () => {
+            const sectionRef = useRef(null);
+            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2 });
+            
+            const skillCategories = [
+                {
+                    category: 'Mobile Development',
+                    skills: [
+                        { name: 'Flutter & Dart', level: 95 },
+                        { name: 'State Management (GetX, Bloc)', level: 85 },
+                        { name: 'REST API Integration', level: 90 },
+                        { name: 'Local Storage (Sqflite)', level: 80 }
+                    ]
+                },
+                {
+                    category: 'Backend & Tools',
+                    skills: [
+                        { name: 'Python', level: 90 },
+                        { name: 'Flask/FastAPI', level: 75 },
+                        { name: 'Git & Version Control', level: 90 },
+                        { name: 'Docker', level: 70 }
+                    ]
+                },
+                {
+                    category: 'Cybersecurity',
+                    skills: [
+                        { name: 'Network Analysis (Nmap)', level: 75 },
+                        { name: 'Security Testing (Burp Suite)', level: 70 },
+                        { name: 'OSINT (Maltego)', level: 60 },
+                        { name: 'Linux CLI', level: 80 }
+                    ]
+                },
+                {
+                    category: 'Design & Process',
+                    skills: [
+                        { name: 'UI/UX Design (Figma)', level: 75 },
+                        { name: 'CI/CD Pipelines', level: 65 },
+                        { name: 'Agile Methodology', level: 80 },
+                        { name: 'Technical Writing', level: 85 }
+                    ]
+                }
+            ];
+            
+            return (
+                <section 
+                    id="skills" 
+                    className="section bg-gray-900/30"
+                    ref={sectionRef}
+                    role="region"
+                    aria-label="Technical skills"
+                >
+                    <div className="container">
+                        {/* Section Header */}
+                        <div className={`max-w-4xl mx-auto mb-20 text-center ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                            <div className="decorative-line mx-auto mb-6"></div>
+                            <h2 className="text-headline mb-6">
+                                Technical <span className="accent-text">Arsenal</span>
+                            </h2>
+                            <p className="text-body text-text-secondary">
+                                A comprehensive toolkit for building world-class applications
+                            </p>
+                        </div>
+                        
+                        {/* Skills Grid */}
+                        <div className={`grid md:grid-cols-2 gap-8 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                            {skillCategories.map((category, catIndex) => (
+                                <div 
+                                    key={catIndex} 
+                                    className="card"
+                                    style={{ animationDelay: `${catIndex * 0.1}s` }}
+                                >
+                                    <h3 className="text-title mb-8">{category.category}</h3>
+                                    <div className="space-y-6">
+                                        {category.skills.map((skill, skillIndex) => (
+                                            <div key={skillIndex}>
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <span className="text-body">{skill.name}</span>
+                                                    <span className="text-mono text-xs accent-text">{skill.level}%</span>
+                                                </div>
+                                                <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
+                                                    <div 
+                                                        className="h-full bg-accent transition-all duration-1000 ease-out"
+                                                        style={{ 
+                                                            width: isVisible ? `${skill.level}%` : '0%',
+                                                            transitionDelay: `${(catIndex * 0.1) + (skillIndex * 0.05)}s`
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ============================================
+           WORK/PROJECTS SECTION
+           ============================================ */
+        
+        const WorkSection = () => {
+            const sectionRef = useRef(null);
+            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.1 });
+            
+            const projects = [
+                {
+                    title: 'Damascus Doctors Directory',
+                    description: 'Healthcare platform with Telegram bot, web dashboard, intelligent search, and real-time sync.',
+                    tech: ['Python', 'Flask', 'SQLite', 'Aiogram', 'REST API'],
+                    highlights: ['Multi-criteria Search', 'Admin Dashboard', 'FSM Conversation Flow']
+                },
+                {
+                    title: 'Local AI Smart Summarizer',
+                    description: 'Privacy-first text summarization using local LLMs with zero-latency processing.',
+                    tech: ['Python', 'Ollama', 'Gemma 2', 'Qwen 2', 'NLP'],
+                    highlights: ['Privacy-First', 'Multilingual', 'Local Processing']
+                },
+                {
+                    title: 'Tasamimi Mobile App',
+                    description: 'Production mobile application with complex UI components and seamless API integration.',
+                    tech: ['Flutter', 'GetX', 'Dio', 'MVC', 'REST APIs'],
+                    highlights: ['Clean Architecture', 'State Management', 'Production Ready']
+                },
+                {
+                    title: 'Moviezone Discovery Platform',
+                    description: 'Feature-rich movie app with TMDB integration, favorites system, and cast details.',
+                    tech: ['Flutter', 'Bloc/Cubit', 'TMDB API', 'SQLite'],
+                    highlights: ['Trending Movies', 'Favorites', 'Cast Information']
+                },
+                {
+                    title: 'E-Commerce Telegram Bot',
+                    description: 'Interactive shopping bot with intelligent conversation flow and diet planning features.',
+                    tech: ['Python', 'Telegram API', 'JSON', 'Asyncio'],
+                    highlights: ['E-commerce', 'Diet Plans', 'Smart Conversations']
+                },
+                {
+                    title: 'Todo & GPA Tracker',
+                    description: 'Multi-functional productivity app with local persistence and adaptive themes.',
+                    tech: ['Flutter', 'GetX', 'Sqflite', 'Dark Mode'],
+                    highlights: ['Task Management', 'GPA Calculator', 'Theme Switcher']
+                }
+            ];
+            
+            return (
+                <section 
+                    id="work" 
+                    className="section"
+                    ref={sectionRef}
+                    role="region"
+                    aria-label="Portfolio work"
+                >
+                    <div className="container">
+                        {/* Section Header */}
+                        <div className={`max-w-4xl mx-auto mb-20 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                            <div className="decorative-line mb-6"></div>
+                            <h2 className="text-headline mb-6">
+                                Featured <span className="accent-text">Work</span>
+                            </h2>
+                            <p className="text-body text-text-secondary">
+                                Real-world solutions built with cutting-edge technologies
+                            </p>
+                        </div>
+                        
+                        {/* Projects Grid */}
+                        <div className={`grid md:grid-cols-2 gap-8 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                            {projects.map((project, index) => (
+                                <article 
+                                    key={index} 
+                                    className="card group cursor-pointer"
+                                    style={{ animationDelay: `${index * 0.1}s` }}
+                                    role="article"
+                                    aria-label={`Project: ${project.title}`}
+                                >
+                                    {/* Project Header */}
+                                    <div className="flex justify-between items-start mb-4">
+                                        <h3 className="text-title group-hover:text-accent transition-colors">
+                                            {project.title}
+                                        </h3>
+                                        <svg 
+                                            width="24" 
+                                            height="24" 
+                                            viewBox="0 0 24 24" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2"
+                                            className="text-accent opacity-0 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                                        </svg>
+                                    </div>
+                                    
+                                    {/* Description */}
+                                    <p className="text-body text-text-secondary mb-6">
+                                        {project.description}
+                                    </p>
+                                    
+                                    {/* Highlights */}
+                                    <div className="flex flex-wrap gap-2 mb-6">
+                                        {project.highlights.map((highlight, i) => (
+                                            <span 
+                                                key={i} 
+                                                className="text-mono text-xs px-3 py-1 border border-gray-700 text-text-secondary"
+                                            >
+                                                {highlight}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    
+                                    {/* Tech Stack */}
+                                    <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-800">
+                                        {project.tech.map((tech, i) => (
+                                            <span 
+                                                key={i} 
+                                                className="text-mono text-xs text-accent"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        
+        const ContactSection = () => {
+            const sectionRef = useRef(null);
+            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2 });
+            const [copied, setCopied] = useState(false);
+            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+            const [formErrors, setFormErrors] = useState({});
+            
+            const copyEmail = () => {
+                navigator.clipboard.writeText('radwansharaf23@gmail.com');
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            };
+            
+            const validateForm = () => {
+                const errors = {};
+                if (!formData.name.trim()) errors.name = 'Name is required';
+                if (!formData.email.trim()) {
+                    errors.email = 'Email is required';
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+                    errors.email = 'Email is invalid';
+                }
+                if (!formData.message.trim()) errors.message = 'Message is required';
+                return errors;
+            };
+            
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                const errors = validateForm();
+                
+                if (Object.keys(errors).length === 0) {
+                    // Sanitize inputs before processing
+                    const sanitizedData = {
+                        name: sanitizeInput(formData.name),
+                        email: sanitizeInput(formData.email),
+                        message: sanitizeInput(formData.message)
+                    };
+                    
+                    // Form is valid - would send to backend here
+                    console.log('Form submitted:', sanitizedData);
+                    alert('Thank you! Your message has been received.');
+                    setFormData({ name: '', email: '', message: '' });
+                    setFormErrors({});
+                } else {
+                    setFormErrors(errors);
+                }
+            };
+            
+            const socialLinks = [
+                { 
+                    name: 'LinkedIn', 
+                    url: 'https://www.linkedin.com/in/radwansharaf',
+                    username: '@radwansharaf',
+                    ariaLabel: 'Connect on LinkedIn'
+                },
+                { 
+                    name: 'Instagram', 
+                    url: 'https://www.instagram.com/radwan__sharaf',
+                    username: '@radwan__sharaf',
+                    ariaLabel: 'Follow on Instagram'
+                },
+                { 
+                    name: 'WhatsApp', 
+                    url: 'https://wa.me/963934092005',
+                    username: '+963 934 092 005',
+                    ariaLabel: 'Message on WhatsApp'
+                }
+            ];
+            
+            return (
+                <section 
+                    id="contact" 
+                    className="section bg-gray-900/30"
+                    ref={sectionRef}
+                    role="region"
+                    aria-label="Contact information"
+                >
+                    <div className="container">
+                        {/* Section Header */}
+                        <div className={`max-w-4xl mx-auto mb-20 text-center ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                            <div className="decorative-line mx-auto mb-6"></div>
+                            <h2 className="text-headline mb-6">
+                                Get In <span className="accent-text">Touch</span>
+                            </h2>
+                            <p className="text-body text-text-secondary">
+                                Have a project in mind? Let's build something amazing together
+                            </p>
+                        </div>
+                        
+                        <div className={`grid md:grid-cols-2 gap-12 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                            {/* Contact Info */}
+                            <div className="space-y-8">
+                                {/* Email Card */}
+                                <div className="card">
+                                    <div className="mb-4">
+                                        <p className="text-mono text-xs text-text-secondary mb-2">EMAIL ADDRESS</p>
+                                        <p className="text-body text-mono mb-4">radwansharaf23@gmail.com</p>
+                                    </div>
+                                    <button
+                                        onClick={copyEmail}
+                                        className={`w-full py-3 text-mono text-sm border-2 transition-all ${
+                                            copied 
+                                                ? 'bg-accent border-accent text-white' 
+                                                : 'border-text-primary text-text-primary hover:bg-text-primary hover:text-bg-primary'
+                                        }`}
+                                        aria-label={copied ? 'Email address copied' : 'Copy email address'}
+                                    >
+                                        {copied ? '✓ COPIED' : 'COPY EMAIL'}
+                                    </button>
+                                </div>
+                                
+                                {/* Location Card */}
+                                <div className="card">
+                                    <p className="text-mono text-xs text-text-secondary mb-2">LOCATION</p>
+                                    <p className="text-title mb-4">Damascus, Syria</p>
+                                    <p className="text-body text-text-secondary">
+                                        Available for remote opportunities worldwide
+                                    </p>
+                                </div>
+                                
+                                {/* Social Links */}
+                                <div className="space-y-4">
+                                    <p className="text-mono text-xs text-text-secondary">CONNECT</p>
+                                    {socialLinks.map((link, index) => (
+                                        <a
+                                            key={index}
+                                            href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block card group"
+                                            aria-label={link.ariaLabel}
+                                        >
+                                            <div className="flex justify-between items-center">
+                                                <div>
+                                                    <p className="text-body mb-1 group-hover:text-accent transition-colors">{link.name}</p>
+                                                    <p className="text-mono text-xs text-text-secondary">{link.username}</p>
+                                                </div>
+                                                <svg 
+                                                    width="20" 
+                                                    height="20" 
+                                                    viewBox="0 0 24 24" 
+                                                    fill="none" 
+                                                    stroke="currentColor" 
+                                                    strokeWidth="2"
+                                                    className="text-accent opacity-0 group-hover:opacity-100 transition-opacity"
+                                                >
+                                                    <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            {/* Contact Form */}
+                            <form 
+                                className="card"
+                                onSubmit={handleSubmit}
+                                noValidate
+                                aria-label="Contact form"
+                            >
+                                <h3 className="text-title mb-8">Send a Message</h3>
+                                
+                                <div className="space-y-6">
+                                    {/* Name Input */}
+                                    <div>
+                                        <label 
+                                            htmlFor="name" 
+                                            className="block text-mono text-xs text-text-secondary mb-2"
+                                        >
+                                            YOUR NAME *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                            className="w-full px-4 py-3 bg-transparent border border-gray-700 focus:border-accent text-text-primary outline-none transition-colors"
+                                            placeholder="John Doe"
+                                            aria-required="true"
+                                            aria-invalid={formErrors.name ? 'true' : 'false'}
+                                            aria-describedby={formErrors.name ? 'name-error' : undefined}
+                                        />
+                                        {formErrors.name && (
+                                            <p id="name-error" className="text-xs text-accent mt-1" role="alert">
+                                                {formErrors.name}
+                                            </p>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Email Input */}
+                                    <div>
+                                        <label 
+                                            htmlFor="email" 
+                                            className="block text-mono text-xs text-text-secondary mb-2"
+                                        >
+                                            YOUR EMAIL *
+                                        </label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                            className="w-full px-4 py-3 bg-transparent border border-gray-700 focus:border-accent text-text-primary outline-none transition-colors"
+                                            placeholder="john@example.com"
+                                            aria-required="true"
+                                            aria-invalid={formErrors.email ? 'true' : 'false'}
+                                            aria-describedby={formErrors.email ? 'email-error' : undefined}
+                                        />
+                                        {formErrors.email && (
+                                            <p id="email-error" className="text-xs text-accent mt-1" role="alert">
+                                                {formErrors.email}
+                                            </p>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Message Textarea */}
+                                    <div>
+                                        <label 
+                                            htmlFor="message" 
+                                            className="block text-mono text-xs text-text-secondary mb-2"
+                                        >
+                                            MESSAGE *
+                                        </label>
+                                        <textarea
+                                            id="message"
+                                            value={formData.message}
+                                            onChange={(e) => setFormData({...formData, message: e.target.value})}
+                                            rows="5"
+                                            className="w-full px-4 py-3 bg-transparent border border-gray-700 focus:border-accent text-text-primary outline-none resize-none transition-colors"
+                                            placeholder="Tell me about your project..."
+                                            aria-required="true"
+                                            aria-invalid={formErrors.message ? 'true' : 'false'}
+                                            aria-describedby={formErrors.message ? 'message-error' : undefined}
+                                        ></textarea>
+                                        {formErrors.message && (
+                                            <p id="message-error" className="text-xs text-accent mt-1" role="alert">
+                                                {formErrors.message}
+                                            </p>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Submit Button */}
+                                    <button 
+                                        type="submit" 
+                                        className="btn btn-primary w-full justify-center"
+                                        aria-label="Send message"
+                                    >
+                                        SEND MESSAGE
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ============================================
+           FOOTER COMPONENT
+           ============================================ */
+        
+        const Footer = () => {
+            return (
+                <footer 
+                    className="section py-12 border-t border-gray-800"
+                    role="contentinfo"
+                >
+                    <div className="container">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                            <div className="text-center md:text-left">
+                                <p className="text-mono text-sm text-text-secondary mb-2">
+                                    © 2026 Radwan Sharaf. Crafted with passion & precision.
+                                </p>
+                                <p className="text-mono text-xs text-text-secondary">
+                                    Built with React • Tailwind CSS • Editorial Minimalism
+                                </p>
+                            </div>
+                            
+                            <a 
+                                href="#home" 
+                                className="text-mono text-sm text-accent hover:text-accent-muted transition-colors flex items-center gap-2"
+                                aria-label="Back to top"
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                                </svg>
+                                BACK TO TOP
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        /* ============================================
+           MAIN APP COMPONENT
+           ============================================ */
+        
+        function Portfolio() {
+            useEffect(() => {
+                // Performance: Lazy load images
+                if ('loading' in HTMLImageElement.prototype) {
+                    const images = document.querySelectorAll('img[loading="lazy"]');
+                    images.forEach(img => {
+                        img.src = img.dataset.src;
+                    });
+                }
+                
+                // Accessibility: Skip to main content link
+                const skipLink = document.createElement('a');
+                skipLink.href = '#home';
+                skipLink.className = 'sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white';
+                skipLink.textContent = 'Skip to main content';
+                document.body.insertBefore(skipLink, document.body.firstChild);
+                
+                return () => {
+                    if (skipLink.parentNode) {
+                        skipLink.parentNode.removeChild(skipLink);
+                    }
+                };
+            }, []);
+            
+            return (
+                <div className="bg-bg-primary text-text-primary">
+                    <Navigation />
+                    <main role="main">
+                        <HeroSection />
+                        <AboutSection />
+                        <SkillsSection />
+                        <WorkSection />
+                        <ContactSection />
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
+
+        /* ============================================
+           RENDER APPLICATION
+           ============================================ */
+        
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Portfolio />);
+    </script>
+</body>
+</html>
