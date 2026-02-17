@@ -1,1401 +1,2063 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Radwan Sharaf - Elite Flutter Developer & Cybersecurity Researcher crafting secure, beautiful mobile experiences">
-    <meta name="author" content="Radwan Sharaf">
-    <meta name="keywords" content="Flutter Developer, Cybersecurity, Mobile Development, Python, Damascus">
-    
-    <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.tailwindcss.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    
-    <!-- Theme & PWA -->
-    <meta name="theme-color" content="#0D0D0D">
-    <link rel="manifest" href="/manifest.json">
-    
-    <title>Radwan Sharaf - Elite Developer & Security Researcher</title>
-    
-    <!-- Distinctive Font Pairing: Editorial Display + Technical Mono -->
+    <meta name="description" content="Radwan Sharaf - Elite Flutter Developer & Cybersecurity Researcher">
+    <meta name="theme-color" content="#00ffff">
+    <title>Radwan Sharaf | Elite Developer & Security Researcher</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
     <style>
-        /* ============================================
-           DESIGN SYSTEM: "Editorial Minimalism Meets Tech Precision"
-           Aesthetic: Refined, architectural, high-contrast, asymmetric
-           ============================================ */
-        
-        :root {
-            /* Color Palette: Monochrome with Strategic Accent */
-            --color-bg-primary: #0D0D0D;
-            --color-bg-secondary: #1A1A1A;
-            --color-text-primary: #FAFAFA;
-            --color-text-secondary: #B3B3B3;
-            --color-accent: #FF4D00;
-            --color-accent-muted: #CC3D00;
-            --color-border: #2A2A2A;
-            
-            /* Typography Scale */
-            --font-display: 'Playfair Display', serif;
-            --font-body: 'Cormorant Garamond', serif;
-            --font-mono: 'IBM Plex Mono', monospace;
-            
-            /* Spacing System */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 2rem;
-            --spacing-lg: 4rem;
-            --spacing-xl: 8rem;
-            
-            /* Motion */
-            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --primary-cyan: #00ffff;
+            --primary-green: #00ff00;
+            --dark-bg: #0a0f1c;
+            --card-bg: rgba(17, 24, 39, 0.8);
+            --border-color: rgba(0, 255, 255, 0.2);
+        }
+
         html {
             scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        body {
-            background: var(--color-bg-primary);
-            color: var(--color-text-primary);
-            font-family: var(--font-body);
-            font-size: 18px;
-            line-height: 1.6;
             overflow-x: hidden;
         }
-        
-        /* Custom Scrollbar - Minimalist */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ── Scrollbar ── */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
-        
+
         ::-webkit-scrollbar-track {
-            background: var(--color-bg-primary);
+            background: #0a0f1c;
         }
-        
+
         ::-webkit-scrollbar-thumb {
-            background: var(--color-accent);
-            border-radius: 4px;
+            background: linear-gradient(180deg, #00ffff, #00ff00);
+            border-radius: 10px;
         }
-        
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
+
+        /* ── Loading ── */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #0a0f1c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease-out;
         }
-        
-        .text-display {
-            font-size: clamp(3rem, 10vw, 7rem);
-            font-weight: 900;
-            line-height: 0.95;
+
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
-        
-        .text-headline {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 700;
+
+        .loader {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(0, 255, 255, 0.1);
+            border-top: 4px solid #00ffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-        
-        .text-title {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 600;
+
+        /* ── Keyframes ── */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
-        .text-body {
-            font-family: var(--font-body);
-            font-size: 1.125rem;
-            line-height: 1.8;
-        }
-        
-        .text-mono {
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            letter-spacing: 0.05em;
-        }
-        
-        /* Accent Text Effect */
-        .accent-text {
-            color: var(--color-accent);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .accent-underline {
-            position: relative;
-        }
-        
-        .accent-underline::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 100%;
-            height: 2px;
-            background: var(--color-accent);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform var(--transition-base);
-        }
-        
-        .accent-underline:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-        
-        /* Animations */
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(30px)
             }
+
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
-        
-        @keyframes fadeIn {
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-16px)
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.4
+            }
+        }
+
+        @keyframes menuSlide {
             from {
                 opacity: 0;
+                transform: translateY(-10px)
             }
+
             to {
                 opacity: 1;
+                transform: translateY(0)
             }
         }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        
-        .animate-fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-        
-        .animate-slide-in-right {
-            animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        
-        .animate-scale-in {
-            animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        
-        /* Layout Components */
+
+        /* ── Utilities ── */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 var(--spacing-md);
+            padding: 0 1.5rem;
         }
-        
-        .section {
-            padding: var(--spacing-xl) 0;
-            position: relative;
+
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
         }
-        
-        /* Card Component */
-        .card {
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
-            padding: var(--spacing-md);
-            transition: all var(--transition-base);
-            position: relative;
-            overflow: hidden;
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .card::before {
-            content: '';
-            position: absolute;
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00ffff 0%, #00ff00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        /* ── Particle canvas ── */
+        #particle-canvas {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ════════════════════════════════════════
+           NAVIGATION
+        ════════════════════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 15, 28, 0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #00ffff, #00ff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        /* Desktop links */
+        .nav-links {
+            display: flex;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.4rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #9ca3af;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #00ffff, #00ff00);
+            color: #0a0f1c;
+            font-weight: 700;
+        }
+
+        .nav-link:hover:not(.active) {
+            color: #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        /* Hamburger button */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 255, 0.08);
+            border: 1.5px solid rgba(0, 255, 255, 0.25);
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(0, 255, 255, 0.15);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+
+        .hamburger span {
+            display: block;
             height: 2px;
-            background: var(--color-accent);
+            background: #00ffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
             transform: scaleX(0);
-            transform-origin: left;
-            transition: transform var(--transition-base);
         }
-        
-        .card:hover::before {
-            transform: scaleX(1);
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
         }
-        
-        .card:hover {
-            border-color: var(--color-accent);
-            transform: translateY(-4px);
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 15, 28, 0.98);
+            backdrop-filter: blur(24px);
+            z-index: 190;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            animation: menuSlide 0.3s ease-out;
         }
-        
-        /* Button Component */
-        .btn {
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2.5rem;
+            border-radius: 16px;
+            width: 80%;
+            max-width: 320px;
+            border: 1.5px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: #00ffff;
+            border-color: rgba(0, 255, 255, 0.5);
+            background: rgba(0, 255, 255, 0.07);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* ════════════════════════════════════════
+           HERO
+        ════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 7rem 1.5rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            top: 5%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: #00ffff;
+        }
+
+        .hero-orb-2 {
+            bottom: 5%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            background: #00ff00;
+            animation-delay: 2s;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50px;
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 8vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.8rem);
+            color: #d1d5db;
+            margin-bottom: 0.75rem;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .typing-text {
+            font-size: clamp(0.9rem, 2vw, 1.4rem);
+            color: #00ffff;
+            font-weight: 600;
+            min-height: 40px;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.8s backwards;
+        }
+
+        .btn {
             padding: 1rem 2rem;
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border: 2px solid;
-            cursor: pointer;
-            transition: all var(--transition-base);
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
             text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ffff, #00ff00);
+            color: #0a0f1c;
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(0, 255, 255, 0.45);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 255, 255, 0.08);
+            border: 2px solid #00ffff !important;
+            color: #00ffff;
+        }
+
+        .btn-secondary:hover {
+            background: #00ffff;
+            color: #0a0f1c;
+            transform: translateY(-3px);
+        }
+
+        /* Rotating SVG */
+        .hero-icon {
+            margin-top: 3.5rem;
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .rotating-border {
+            width: 140px;
+            height: 140px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .rotating-ring {
+            position: absolute;
+            inset: 0;
+            animation: spin 20s linear infinite;
+        }
+
+        .rotating-ring div {
+            position: absolute;
+            border: 2px solid;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .ring-1 {
+            inset: 0;
+            border-color: #00ffff;
+        }
+
+        .ring-2 {
+            inset: 0.8rem;
+            border-color: #00ff00;
+        }
+
+        .ring-3 {
+            inset: 1.6rem;
+            border-color: #00ffff;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 3.5rem;
+            animation: fadeInUp 1.2s ease-out 1.2s backwards;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 18px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(0, 255, 255, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(0, 255, 255, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.6rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #00ffff, #00ff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        /* ════════════════════════════════════════
+           SECTIONS
+        ════════════════════════════════════════ */
+        section {
+            position: relative;
+            padding: 6rem 1.5rem;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50px;
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ── About cards ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 2rem;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
-        
-        .btn-primary {
-            background: var(--color-accent);
-            border-color: var(--color-accent);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: var(--color-accent-muted);
-            border-color: var(--color-accent-muted);
-            transform: translateX(4px);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border-color: var(--color-text-primary);
-            color: var(--color-text-primary);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--color-text-primary);
-            color: var(--color-bg-primary);
-        }
-        
-        /* Grid System */
-        .grid {
-            display: grid;
-            gap: var(--spacing-md);
-        }
-        
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-        
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-        
-        /* Decorative Elements */
-        .decorative-line {
-            width: 60px;
-            height: 2px;
-            background: var(--color-accent);
-            margin: var(--spacing-sm) 0;
-        }
-        
-        .decorative-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--color-accent);
-            border-radius: 50%;
-            display: inline-block;
-            margin: 0 var(--spacing-xs);
-        }
-        
-        /* Accessibility */
-        .sr-only {
+
+        .card::before {
+            content: '';
             position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
+            inset: -2px;
+            background: linear-gradient(135deg, #00ffff, #00ff00);
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .card:hover::before {
+            opacity: 0.15;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 18px 50px rgba(0, 255, 255, 0.2);
+        }
+
+        /* ── Skills ── */
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .skill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.4rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid rgba(0, 255, 255, 0.2);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
         }
-        
-        /* Focus States */
-        *:focus-visible {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 4px;
+
+        .skill-badge::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--color-from), var(--color-to));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+
+        .skill-badge:hover::before {
+            opacity: 0.18;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-3px) scale(1.04);
+            border-color: rgba(0, 255, 255, 0.55);
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.22);
+        }
+
+        .skill-icon {
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-name {
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+        }
+
+        .skill-level {
+            font-size: 0.7rem;
+            opacity: 0.65;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Projects ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 255, 0.15);
+            border-radius: 26px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+            border-radius: 26px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            filter: blur(18px);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.28;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.015);
+            border-color: rgba(0, 255, 255, 0.38);
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .project-icon {
+            font-size: 2.8rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .project-title {
+            font-size: 1.45rem;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .project-description {
+            color: #d1d5db;
+            line-height: 1.75;
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+            font-size: 0.95rem;
+        }
+
+        .project-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-tag {
+            padding: 0.3rem 0.85rem;
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid rgba(0, 255, 255, 0.28);
+            border-radius: 20px;
+            font-size: 0.78rem;
+            color: #00ffff;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tech-tag {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* GitHub button */
+        .project-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.2rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(0, 255, 255, 0.32);
+            border-radius: 50px;
+            color: #a5f3fc;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: color .28s, border-color .28s, transform .28s, box-shadow .28s;
+        }
+
+        .github-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.12), rgba(0, 255, 0, 0.06));
+            opacity: 0;
+            transition: opacity .28s;
+        }
+
+        .github-btn:hover {
+            color: #00ffff;
+            border-color: rgba(0, 255, 255, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 0 14px rgba(0, 255, 255, 0.2), 0 5px 18px rgba(0, 0, 0, 0.38);
+        }
+
+        .github-btn:hover::before {
+            opacity: 1;
+        }
+
+        .github-btn svg,
+        .github-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .github-btn svg {
+            flex-shrink: 0;
+            transition: transform .28s;
+        }
+
+        .github-btn:hover svg {
+            transform: rotate(-8deg) scale(1.12);
+        }
+
+        .github-btn .btn-arrow {
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: opacity .28s, transform .28s;
+        }
+
+        .github-btn:hover .btn-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ════════════════════════════════════════
+           CONTACT
+        ════════════════════════════════════════ */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 255, 0.28);
+            border-radius: 22px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(0, 255, 255, 0.55);
+            box-shadow: 0 18px 45px rgba(0, 255, 255, 0.15);
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            max-width: 1100px;
+            margin: 0 auto 3.5rem;
+        }
+
+        .contact-form-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 255, 0.22);
+            border-radius: 28px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form-card:hover {
+            border-color: rgba(0, 255, 255, 0.42);
+            box-shadow: 0 18px 55px rgba(0, 255, 255, 0.1);
+        }
+
+        .form-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+
+        .form-subtitle {
+            color: #9ca3af;
+            font-size: 0.92rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #a5f3fc;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .form-label .required {
+            color: #00ffff;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            background: rgba(0, 255, 255, 0.03);
+            border: 1.5px solid rgba(0, 255, 255, 0.18);
+            border-radius: 13px;
+            padding: 0.85rem 1.1rem;
+            color: #ffffff;
+            font-size: 0.97rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color .24s, box-shadow .24s, background .24s;
+            resize: none;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(156, 163, 175, 0.55);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: rgba(0, 255, 255, 0.6);
+            background: rgba(0, 255, 255, 0.055);
+            box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.07), 0 0 18px rgba(0, 255, 255, 0.08);
+        }
+
+        .form-textarea {
+            min-height: 130px;
+            line-height: 1.7;
+        }
+
+        .form-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.75rem;
+        }
+
+        .char-count {
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #6b7280;
+            transition: color .2s;
+        }
+
+        .char-count.warn {
+            color: #f59e0b;
+        }
+
+        .btn-send {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.9rem 2.2rem;
+            background: linear-gradient(135deg, #00ffff, #00ff00);
+            border: none;
+            border-radius: 50px;
+            color: #0a0f1c;
+            font-weight: 800;
+            font-size: 0.97rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: transform .24s, box-shadow .24s, opacity .24s;
+            box-shadow: 0 7px 24px rgba(0, 255, 255, 0.28);
+        }
+
+        .btn-send:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 13px 34px rgba(0, 255, 255, 0.42);
+        }
+
+        .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-send .send-icon {
+            transition: transform 0.3s;
+        }
+
+        .btn-send:hover:not(:disabled) .send-icon {
+            transform: translateX(4px) rotate(-15deg);
+        }
+
+        .form-toast {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.9rem 1.3rem;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-top: 1.25rem;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .form-toast.success {
+            background: rgba(0, 255, 136, 0.07);
+            border: 1.5px solid rgba(0, 255, 136, 0.32);
+            color: #00ff88;
+        }
+
+        .form-toast.error {
+            background: rgba(255, 80, 80, 0.07);
+            border: 1.5px solid rgba(255, 80, 80, 0.32);
+            color: #ff8080;
+        }
+
+        /* Social */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .social-link {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 255, 0.14);
+            border-radius: 22px;
+            padding: 2rem;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .social-link:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 18px 44px rgba(0, 255, 255, 0.22);
+        }
+
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover .social-icon {
+            transform: scale(1.2) rotate(-5deg);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2.5rem 1.5rem;
+            border-top: 1px solid rgba(0, 255, 255, 0.18);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        /* ════════════════════════════════════════
+           RESPONSIVE — TABLET  (≤ 900px)
+        ════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: 1;
             }
         }
-        
-        /* Performance Optimization */
-        .will-change-transform {
-            will-change: transform;
-        }
-        
-        .gpu-accelerated {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-        }
-        
-        /* Print Styles */
-        @media print {
-            .no-print {
-                display: none !important;
+
+        /* ════════════════════════════════════════
+           RESPONSIVE — MOBILE  (≤ 600px)
+        ════════════════════════════════════════ */
+        @media (max-width: 600px) {
+
+            /* Nav */
+            .nav-logo {
+                font-size: 1.3rem;
             }
-            
-            body {
-                background: white;
-                color: black;
+
+            /* Hero */
+            .hero {
+                padding: 5.5rem 1rem 3rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .hero-title {
+                font-size: clamp(1.9rem, 10vw, 3rem);
+            }
+
+            .hero-subtitle {
+                font-size: clamp(0.9rem, 4vw, 1.2rem);
+            }
+
+            .typing-text {
+                font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+                min-height: 36px;
+            }
+
+            .hero-buttons {
+                gap: 0.75rem;
+                margin-top: 1.75rem;
+            }
+
+            .btn {
+                padding: 0.85rem 1.4rem;
+                font-size: 0.9rem;
+                border-radius: 12px;
+            }
+
+            /* Rotating icon */
+            .hero-icon {
+                margin-top: 2.5rem;
+            }
+
+            .rotating-border {
+                width: 110px;
+                height: 110px;
+            }
+
+            /* Stats — 2 cols on small, stays readable */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-top: 2.5rem;
+            }
+
+            .stat-card {
+                padding: 1.1rem 0.6rem;
+                border-radius: 14px;
+            }
+
+            .stat-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .stat-number {
+                font-size: 1.4rem;
+            }
+
+            .stat-label {
+                font-size: 0.72rem;
+            }
+
+            /* Sections */
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .section-title {
+                font-size: clamp(1.6rem, 7vw, 2.8rem);
+            }
+
+            .section-description {
+                font-size: 0.95rem;
+            }
+
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+
+            /* About */
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+                border-radius: 18px;
+            }
+
+            /* Skills */
+            .skill-badge {
+                padding: 0.6rem 1rem;
+                font-size: 0.88rem;
+                gap: 0.45rem;
+            }
+
+            .skill-icon {
+                font-size: 1.1rem;
+            }
+
+            .skill-level {
+                display: none;
+            }
+
+            /* hide level on very small screens */
+
+            /* Projects */
+            .projects-grid {
+                gap: 1.25rem;
+            }
+
+            .project-card {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+
+            .project-icon {
+                font-size: 2.2rem;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+            }
+
+            .project-description {
+                font-size: 0.88rem;
+            }
+
+            .feature-tag {
+                font-size: 0.72rem;
+                padding: 0.25rem 0.7rem;
+            }
+
+            .tech-tag {
+                font-size: 0.78rem;
+                padding: 0.4rem 0.85rem;
+            }
+
+            .github-btn {
+                font-size: 0.76rem;
+                padding: 0.5rem 1rem;
+            }
+
+            /* Contact */
+            .contact-card {
+                padding: 1.5rem;
+                border-radius: 18px;
+            }
+
+            .contact-form-card {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+
+            .form-title {
+                font-size: 1.2rem;
+            }
+
+            .form-input,
+            .form-textarea {
+                font-size: 0.92rem;
+                padding: 0.78rem 1rem;
+                border-radius: 11px;
+            }
+
+            .form-textarea {
+                min-height: 110px;
+            }
+
+            .btn-send {
+                padding: 0.82rem 1.7rem;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .form-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .char-count {
+                text-align: right;
+            }
+
+            /* Social */
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-link {
+                padding: 1.5rem;
+                border-radius: 18px;
+            }
+
+            .social-icon {
+                font-size: 2.5rem;
+            }
+
+            /* Footer */
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+
+        /* ════════════════════════════════════════
+           VERY SMALL  (≤ 380px)
+        ════════════════════════════════════════ */
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .btn {
+                padding: 0.75rem 1.1rem;
+                font-size: 0.82rem;
+            }
+
+            .project-title {
+                font-size: 1.05rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
+
 <body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+    <canvas id="particle-canvas"></canvas>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef, useCallback, memo } = React;
+        const { useState, useEffect, useRef } = React;
 
-        /* ============================================
-           UTILITY FUNCTIONS
-           ============================================ */
-        
-        // Sanitize input to prevent XSS
-        const sanitizeInput = (input) => {
-            const div = document.createElement('div');
-            div.textContent = input;
-            return div.innerHTML;
-        };
-        
-        // Debounce function for performance
-        const debounce = (func, wait) => {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        };
-        
-        // Intersection Observer hook for lazy loading
-        const useIntersectionObserver = (ref, options = {}) => {
-            const [isIntersecting, setIsIntersecting] = useState(false);
-            
-            useEffect(() => {
-                if (!ref.current) return;
-                
-                const observer = new IntersectionObserver(([entry]) => {
-                    if (entry.isIntersecting) {
-                        setIsIntersecting(true);
-                        observer.disconnect();
-                    }
-                }, options);
-                
-                observer.observe(ref.current);
-                
-                return () => observer.disconnect();
-            }, [ref, options]);
-            
-            return isIntersecting;
-        };
-
-        /* ============================================
-           NAVIGATION COMPONENT
-           ============================================ */
-        
-        const Navigation = memo(() => {
-            const [isScrolled, setIsScrolled] = useState(false);
-            const [activeSection, setActiveSection] = useState('home');
-            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-            
-            useEffect(() => {
-                const handleScroll = debounce(() => {
-                    setIsScrolled(window.scrollY > 50);
-                    
-                    const sections = ['home', 'about', 'skills', 'work', 'contact'];
-                    const current = sections.find(section => {
-                        const element = document.getElementById(section);
-                        if (element) {
-                            const rect = element.getBoundingClientRect();
-                            return rect.top <= 100 && rect.bottom >= 100;
-                        }
-                        return false;
-                    });
-                    if (current) setActiveSection(current);
-                }, 50);
-                
-                window.addEventListener('scroll', handleScroll, { passive: true });
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-            
-            const navItems = [
-                { id: 'home', label: 'Home' },
-                { id: 'about', label: 'About' },
-                { id: 'skills', label: 'Skills' },
-                { id: 'work', label: 'Work' },
-                { id: 'contact', label: 'Contact' }
-            ];
-            
-            return (
-                <nav 
-                    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                        isScrolled ? 'bg-black/90 backdrop-blur-sm border-b border-gray-800' : 'bg-transparent'
-                    }`}
-                    role="navigation"
-                    aria-label="Main navigation"
-                >
-                    <div className="container">
-                        <div className="flex justify-between items-center py-6">
-                            {/* Logo */}
-                            <a 
-                                href="#home" 
-                                className="text-2xl font-bold text-mono accent-text"
-                                aria-label="Radwan Sharaf - Home"
-                            >
-                                RS
-                            </a>
-                            
-                            {/* Desktop Navigation */}
-                            <div className="hidden md:flex items-center gap-8">
-                                {navItems.map(item => (
-                                    <a
-                                        key={item.id}
-                                        href={`#${item.id}`}
-                                        className={`text-mono transition-colors ${
-                                            activeSection === item.id 
-                                                ? 'text-accent-text' 
-                                                : 'text-text-secondary hover:text-text-primary'
-                                        }`}
-                                        aria-current={activeSection === item.id ? 'page' : undefined}
-                                    >
-                                        {item.label}
-                                    </a>
-                                ))}
-                            </div>
-                            
-                            {/* Mobile Menu Button */}
-                            <button
-                                className="md:hidden text-white p-2 focus:outline-none"
-                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                aria-label="Toggle mobile menu"
-                                aria-expanded={isMobileMenuOpen}
-                            >
-                                <svg 
-                                    width="24" 
-                                    height="24" 
-                                    viewBox="0 0 24 24" 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    strokeWidth="2"
-                                >
-                                    {isMobileMenuOpen ? (
-                                        <path d="M6 18L18 6M6 6l12 12" />
-                                    ) : (
-                                        <path d="M3 12h18M3 6h18M3 18h18" />
-                                    )}
-                                </svg>
-                            </button>
-                        </div>
-                        
-                        {/* Mobile Menu */}
-                        {isMobileMenuOpen && (
-                            <div className="md:hidden py-4 border-t border-gray-800">
-                                {navItems.map(item => (
-                                    <a
-                                        key={item.id}
-                                        href={`#${item.id}`}
-                                        className="block py-3 text-mono text-text-secondary hover:text-accent transition-colors"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        {item.label}
-                                    </a>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </nav>
-            );
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('fade-out');
+            }, 1000);
         });
 
-        /* ============================================
-           HERO SECTION
-           ============================================ */
-        
-        const HeroSection = () => {
-            const [displayText, setDisplayText] = useState('');
-            const [phraseIndex, setPhraseIndex] = useState(0);
-            const phrases = [
-                'Flutter Developer',
-                'Python Enthusiast',
-                'Security Researcher',
-                'Mobile Architect'
-            ];
-            
+        /* ── GitHub SVG Icon ── */
+        const GitHubIcon = () => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489
+                    .5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7
+                    -2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464
+                    -.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03
+                    .892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338
+                    -2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683
+                    -.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025
+                    A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337
+                    c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647
+                    .64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935
+                    .359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743
+                    0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+        );
+
+        /* ── Particle System ── */
+        const ParticleSystem = () => {
             useEffect(() => {
-                let currentIndex = 0;
-                let isDeleting = false;
-                let timeoutId;
-                
-                const type = () => {
-                    const currentPhrase = phrases[phraseIndex];
-                    
-                    if (!isDeleting) {
-                        setDisplayText(currentPhrase.substring(0, currentIndex + 1));
-                        currentIndex++;
-                        
-                        if (currentIndex === currentPhrase.length) {
-                            isDeleting = true;
-                            timeoutId = setTimeout(type, 2000);
-                            return;
-                        }
-                        timeoutId = setTimeout(type, 100);
-                    } else {
-                        setDisplayText(currentPhrase.substring(0, currentIndex - 1));
-                        currentIndex--;
-                        
-                        if (currentIndex === 0) {
-                            isDeleting = false;
-                            setPhraseIndex((prev) => (prev + 1) % phrases.length);
-                        }
-                        timeoutId = setTimeout(type, 50);
+                const canvas = document.getElementById('particle-canvas');
+                const ctx = canvas.getContext('2d');
+                let animationId;
+                const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+                resize();
+                window.addEventListener('resize', resize);
+                class Particle {
+                    constructor() {
+                        this.reset();
                     }
-                };
-                
-                type();
-                return () => clearTimeout(timeoutId);
-            }, [phraseIndex]);
-            
-            return (
-                <section 
-                    id="home" 
-                    className="section min-h-screen flex items-center justify-center relative"
-                    role="banner"
-                >
-                    <div className="container">
-                        <div className="max-w-5xl mx-auto">
-                            {/* Status Badge */}
-                            <div className="opacity-0 animate-fade-in mb-8" style={{ animationDelay: '0.2s' }}>
-                                <span className="inline-flex items-center gap-2 px-4 py-2 border border-accent text-accent text-mono text-xs">
-                                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-                                    AVAILABLE FOR OPPORTUNITIES
-                                </span>
-                            </div>
-                            
-                            {/* Main Heading */}
-                            <h1 className="text-display mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-                                Radwan Sharaf
-                            </h1>
-                            
-                            {/* Typed Text */}
-                            <div className="opacity-0 animate-fade-in-up mb-12" style={{ animationDelay: '0.6s' }}>
-                                <p className="text-title text-text-secondary">
-                                    <span className="accent-text text-mono">{displayText}</span>
-                                    <span className="animate-pulse">|</span>
-                                </p>
-                            </div>
-                            
-                            {/* Description */}
-                            <div className="opacity-0 animate-fade-in-up mb-12" style={{ animationDelay: '0.8s' }}>
-                                <p className="text-body max-w-2xl text-text-secondary">
-                                    Crafting secure, elegant mobile experiences at the intersection of 
-                                    <span className="accent-text"> development</span> and 
-                                    <span className="accent-text"> cybersecurity</span>. 
-                                    Based in Damascus, working globally.
-                                </p>
-                            </div>
-                            
-                            {/* CTA Buttons */}
-                            <div className="opacity-0 animate-fade-in-up flex flex-wrap gap-4 mb-16" style={{ animationDelay: '1s' }}>
-                                <a href="#work" className="btn btn-primary" aria-label="View my work">
-                                    View Work
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
-                                </a>
-                                <a href="#contact" className="btn btn-secondary" aria-label="Get in touch">
-                                    Get In Touch
-                                </a>
-                            </div>
-                            
-                            {/* Stats Grid */}
-                            <div className="opacity-0 animate-fade-in grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 border-t border-gray-800" style={{ animationDelay: '1.2s' }}>
-                                {[
-                                    { value: '7+', label: 'Projects' },
-                                    { value: '4+', label: 'Years Exp.' },
-                                    { value: '12+', label: 'Technologies' },
-                                    { value: '#2', label: 'Syria Rank' }
-                                ].map((stat, index) => (
-                                    <div key={index} className="text-center md:text-left">
-                                        <div className="text-headline accent-text mb-2">{stat.value}</div>
-                                        <div className="text-mono text-xs text-text-secondary">{stat.label}</div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {/* Scroll Indicator */}
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 animate-fade-in" style={{ animationDelay: '1.5s' }}>
-                        <a href="#about" className="flex flex-col items-center gap-2 text-text-secondary hover:text-accent transition-colors" aria-label="Scroll to about section">
-                            <span className="text-mono text-xs">SCROLL</span>
-                            <svg width="20" height="30" viewBox="0 0 20 30" fill="none" stroke="currentColor" strokeWidth="2">
-                                <rect x="2" y="2" width="16" height="26" rx="8"/>
-                                <circle cx="10" cy="10" r="2">
-                                    <animate attributeName="cy" from="10" to="20" dur="1.5s" repeatCount="indefinite"/>
-                                </circle>
-                            </svg>
-                        </a>
-                    </div>
-                </section>
-            );
-        };
-
-        /* ============================================
-           ABOUT SECTION
-           ============================================ */
-        
-        const AboutSection = () => {
-            const sectionRef = useRef(null);
-            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2 });
-            
-            return (
-                <section 
-                    id="about" 
-                    className="section"
-                    ref={sectionRef}
-                    role="region"
-                    aria-label="About me"
-                >
-                    <div className="container">
-                        {/* Section Header */}
-                        <div className={`max-w-4xl mx-auto mb-20 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-                            <div className="decorative-line mb-6"></div>
-                            <h2 className="text-headline mb-6">
-                                About <span className="accent-text">Me</span>
-                            </h2>
-                            <p className="text-body text-text-secondary">
-                                A story of passion, precision, and perpetual learning
-                            </p>
-                        </div>
-                        
-                        {/* Content Grid */}
-                        <div className={`grid md:grid-cols-2 gap-12 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                            {/* Education Card */}
-                            <div className="card">
-                                <div className="flex items-start gap-4 mb-6">
-                                    <div className="text-4xl accent-text">🎓</div>
-                                    <div>
-                                        <h3 className="text-title mb-2">Education</h3>
-                                        <p className="text-mono text-xs text-text-secondary">YARMOUK PRIVATE UNIVERSITY</p>
-                                    </div>
-                                </div>
-                                <p className="text-body text-text-secondary mb-4">
-                                    4th-year Information Engineering student with a minor in Software Engineering. 
-                                    Expected graduation: <span className="accent-text">July 2027</span>
-                                </p>
-                                <div className="decorative-line"></div>
-                            </div>
-                            
-                            {/* Expertise Card */}
-                            <div className="card">
-                                <div className="flex items-start gap-4 mb-6">
-                                    <div className="text-4xl accent-text">⚡</div>
-                                    <div>
-                                        <h3 className="text-title mb-2">Expertise</h3>
-                                        <p className="text-mono text-xs text-text-secondary">FULL-STACK MOBILE & SECURITY</p>
-                                    </div>
-                                </div>
-                                <p className="text-body text-text-secondary mb-4">
-                                    Specializing in Flutter development and cybersecurity research. 
-                                    Bridging the gap between beautiful interfaces and robust security.
-                                </p>
-                                <div className="decorative-line"></div>
-                            </div>
-                            
-                            {/* Achievement Card - Full Width */}
-                            <div className="md:col-span-2 card">
-                                <div className="flex flex-col md:flex-row items-start gap-8">
-                                    <div className="flex items-start gap-4 flex-1">
-                                        <div className="text-4xl accent-text">🏆</div>
-                                        <div>
-                                            <h3 className="text-title mb-2">Achievement</h3>
-                                            <p className="text-mono text-xs text-text-secondary mb-4">FAVIKON RANKING 2025</p>
-                                            <p className="text-body text-text-secondary">
-                                                Ranked among Syria's top content creators in mobile development 
-                                                and IT categories, demonstrating thought leadership and technical excellence.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-8">
-                                        <div className="text-center">
-                                            <div className="text-headline accent-text mb-2">#2</div>
-                                            <p className="text-mono text-xs text-text-secondary">Mobile & Telecom</p>
-                                        </div>
-                                        <div className="text-center">
-                                            <div className="text-headline accent-text mb-2">#31</div>
-                                            <p className="text-mono text-xs text-text-secondary">IT Categories</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* Timeline */}
-                        <div className={`max-w-4xl mx-auto mt-20 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
-                            <h3 className="text-title mb-12 text-center">
-                                <span className="accent-text">Journey</span> Milestones
-                            </h3>
-                            <div className="grid md:grid-cols-4 gap-8">
-                                {[
-                                    { year: '2023', title: 'Started Information Engineering' },
-                                    { year: '2024', title: 'First App Published' },
-                                    { year: '2025', title: 'Ranked #2 in Syria' },
-                                    { year: '2027', title: 'Expected Graduation' }
-                                ].map((milestone, index) => (
-                                    <div key={index} className="text-center">
-                                        <div className="w-full h-px bg-gray-800 mb-4 relative">
-                                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full"></div>
-                                        </div>
-                                        <div className="text-headline accent-text mb-2">{milestone.year}</div>
-                                        <p className="text-mono text-xs text-text-secondary">{milestone.title}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            );
-        };
-
-        /* ============================================
-           SKILLS SECTION
-           ============================================ */
-        
-        const SkillsSection = () => {
-            const sectionRef = useRef(null);
-            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2 });
-            
-            const skillCategories = [
-                {
-                    category: 'Mobile Development',
-                    skills: [
-                        { name: 'Flutter & Dart', level: 95 },
-                        { name: 'State Management (GetX, Bloc)', level: 85 },
-                        { name: 'REST API Integration', level: 90 },
-                        { name: 'Local Storage (Sqflite)', level: 80 }
-                    ]
-                },
-                {
-                    category: 'Backend & Tools',
-                    skills: [
-                        { name: 'Python', level: 90 },
-                        { name: 'Flask/FastAPI', level: 75 },
-                        { name: 'Git & Version Control', level: 90 },
-                        { name: 'Docker', level: 70 }
-                    ]
-                },
-                {
-                    category: 'Cybersecurity',
-                    skills: [
-                        { name: 'Network Analysis (Nmap)', level: 75 },
-                        { name: 'Security Testing (Burp Suite)', level: 70 },
-                        { name: 'OSINT (Maltego)', level: 60 },
-                        { name: 'Linux CLI', level: 80 }
-                    ]
-                },
-                {
-                    category: 'Design & Process',
-                    skills: [
-                        { name: 'UI/UX Design (Figma)', level: 75 },
-                        { name: 'CI/CD Pipelines', level: 65 },
-                        { name: 'Agile Methodology', level: 80 },
-                        { name: 'Technical Writing', level: 85 }
-                    ]
+                    reset() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.vx = (Math.random() - 0.5) * 0.4;
+                        this.vy = (Math.random() - 0.5) * 0.4;
+                        this.radius = Math.random() * 1.5 + 0.5;
+                    }
+                    update() {
+                        this.x += this.vx; this.y += this.vy;
+                        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(0,255,255,0.45)';
+                        ctx.fill();
+                    }
                 }
-            ];
-            
-            return (
-                <section 
-                    id="skills" 
-                    className="section bg-gray-900/30"
-                    ref={sectionRef}
-                    role="region"
-                    aria-label="Technical skills"
-                >
-                    <div className="container">
-                        {/* Section Header */}
-                        <div className={`max-w-4xl mx-auto mb-20 text-center ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-                            <div className="decorative-line mx-auto mb-6"></div>
-                            <h2 className="text-headline mb-6">
-                                Technical <span className="accent-text">Arsenal</span>
-                            </h2>
-                            <p className="text-body text-text-secondary">
-                                A comprehensive toolkit for building world-class applications
-                            </p>
-                        </div>
-                        
-                        {/* Skills Grid */}
-                        <div className={`grid md:grid-cols-2 gap-8 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                            {skillCategories.map((category, catIndex) => (
-                                <div 
-                                    key={catIndex} 
-                                    className="card"
-                                    style={{ animationDelay: `${catIndex * 0.1}s` }}
-                                >
-                                    <h3 className="text-title mb-8">{category.category}</h3>
-                                    <div className="space-y-6">
-                                        {category.skills.map((skill, skillIndex) => (
-                                            <div key={skillIndex}>
-                                                <div className="flex justify-between items-center mb-2">
-                                                    <span className="text-body">{skill.name}</span>
-                                                    <span className="text-mono text-xs accent-text">{skill.level}%</span>
-                                                </div>
-                                                <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
-                                                    <div 
-                                                        className="h-full bg-accent transition-all duration-1000 ease-out"
-                                                        style={{ 
-                                                            width: isVisible ? `${skill.level}%` : '0%',
-                                                            transitionDelay: `${(catIndex * 0.1) + (skillIndex * 0.05)}s`
-                                                        }}
-                                                    ></div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            );
-        };
-
-        /* ============================================
-           WORK/PROJECTS SECTION
-           ============================================ */
-        
-        const WorkSection = () => {
-            const sectionRef = useRef(null);
-            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.1 });
-            
-            const projects = [
-                {
-                    title: 'Damascus Doctors Directory',
-                    description: 'Healthcare platform with Telegram bot, web dashboard, intelligent search, and real-time sync.',
-                    tech: ['Python', 'Flask', 'SQLite', 'Aiogram', 'REST API'],
-                    highlights: ['Multi-criteria Search', 'Admin Dashboard', 'FSM Conversation Flow']
-                },
-                {
-                    title: 'Local AI Smart Summarizer',
-                    description: 'Privacy-first text summarization using local LLMs with zero-latency processing.',
-                    tech: ['Python', 'Ollama', 'Gemma 2', 'Qwen 2', 'NLP'],
-                    highlights: ['Privacy-First', 'Multilingual', 'Local Processing']
-                },
-                {
-                    title: 'Tasamimi Mobile App',
-                    description: 'Production mobile application with complex UI components and seamless API integration.',
-                    tech: ['Flutter', 'GetX', 'Dio', 'MVC', 'REST APIs'],
-                    highlights: ['Clean Architecture', 'State Management', 'Production Ready']
-                },
-                {
-                    title: 'Moviezone Discovery Platform',
-                    description: 'Feature-rich movie app with TMDB integration, favorites system, and cast details.',
-                    tech: ['Flutter', 'Bloc/Cubit', 'TMDB API', 'SQLite'],
-                    highlights: ['Trending Movies', 'Favorites', 'Cast Information']
-                },
-                {
-                    title: 'E-Commerce Telegram Bot',
-                    description: 'Interactive shopping bot with intelligent conversation flow and diet planning features.',
-                    tech: ['Python', 'Telegram API', 'JSON', 'Asyncio'],
-                    highlights: ['E-commerce', 'Diet Plans', 'Smart Conversations']
-                },
-                {
-                    title: 'Todo & GPA Tracker',
-                    description: 'Multi-functional productivity app with local persistence and adaptive themes.',
-                    tech: ['Flutter', 'GetX', 'Sqflite', 'Dark Mode'],
-                    highlights: ['Task Management', 'GPA Calculator', 'Theme Switcher']
-                }
-            ];
-            
-            return (
-                <section 
-                    id="work" 
-                    className="section"
-                    ref={sectionRef}
-                    role="region"
-                    aria-label="Portfolio work"
-                >
-                    <div className="container">
-                        {/* Section Header */}
-                        <div className={`max-w-4xl mx-auto mb-20 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-                            <div className="decorative-line mb-6"></div>
-                            <h2 className="text-headline mb-6">
-                                Featured <span className="accent-text">Work</span>
-                            </h2>
-                            <p className="text-body text-text-secondary">
-                                Real-world solutions built with cutting-edge technologies
-                            </p>
-                        </div>
-                        
-                        {/* Projects Grid */}
-                        <div className={`grid md:grid-cols-2 gap-8 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                            {projects.map((project, index) => (
-                                <article 
-                                    key={index} 
-                                    className="card group cursor-pointer"
-                                    style={{ animationDelay: `${index * 0.1}s` }}
-                                    role="article"
-                                    aria-label={`Project: ${project.title}`}
-                                >
-                                    {/* Project Header */}
-                                    <div className="flex justify-between items-start mb-4">
-                                        <h3 className="text-title group-hover:text-accent transition-colors">
-                                            {project.title}
-                                        </h3>
-                                        <svg 
-                                            width="24" 
-                                            height="24" 
-                                            viewBox="0 0 24 24" 
-                                            fill="none" 
-                                            stroke="currentColor" 
-                                            strokeWidth="2"
-                                            className="text-accent opacity-0 group-hover:opacity-100 transition-opacity"
-                                        >
-                                            <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                                        </svg>
-                                    </div>
-                                    
-                                    {/* Description */}
-                                    <p className="text-body text-text-secondary mb-6">
-                                        {project.description}
-                                    </p>
-                                    
-                                    {/* Highlights */}
-                                    <div className="flex flex-wrap gap-2 mb-6">
-                                        {project.highlights.map((highlight, i) => (
-                                            <span 
-                                                key={i} 
-                                                className="text-mono text-xs px-3 py-1 border border-gray-700 text-text-secondary"
-                                            >
-                                                {highlight}
-                                            </span>
-                                        ))}
-                                    </div>
-                                    
-                                    {/* Tech Stack */}
-                                    <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-800">
-                                        {project.tech.map((tech, i) => (
-                                            <span 
-                                                key={i} 
-                                                className="text-mono text-xs text-accent"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </article>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            );
-        };
-
-        /* ============================================
-           CONTACT SECTION
-           ============================================ */
-        
-        const ContactSection = () => {
-            const sectionRef = useRef(null);
-            const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2 });
-            const [copied, setCopied] = useState(false);
-            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-            const [formErrors, setFormErrors] = useState({});
-            
-            const copyEmail = () => {
-                navigator.clipboard.writeText('radwansharaf23@gmail.com');
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            };
-            
-            const validateForm = () => {
-                const errors = {};
-                if (!formData.name.trim()) errors.name = 'Name is required';
-                if (!formData.email.trim()) {
-                    errors.email = 'Email is required';
-                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-                    errors.email = 'Email is invalid';
-                }
-                if (!formData.message.trim()) errors.message = 'Message is required';
-                return errors;
-            };
-            
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                const errors = validateForm();
-                
-                if (Object.keys(errors).length === 0) {
-                    // Sanitize inputs before processing
-                    const sanitizedData = {
-                        name: sanitizeInput(formData.name),
-                        email: sanitizeInput(formData.email),
-                        message: sanitizeInput(formData.message)
-                    };
-                    
-                    // Form is valid - would send to backend here
-                    console.log('Form submitted:', sanitizedData);
-                    alert('Thank you! Your message has been received.');
-                    setFormData({ name: '', email: '', message: '' });
-                    setFormErrors({});
-                } else {
-                    setFormErrors(errors);
-                }
-            };
-            
-            const socialLinks = [
-                { 
-                    name: 'LinkedIn', 
-                    url: 'https://www.linkedin.com/in/radwansharaf',
-                    username: '@radwansharaf',
-                    ariaLabel: 'Connect on LinkedIn'
-                },
-                { 
-                    name: 'Instagram', 
-                    url: 'https://www.instagram.com/radwan__sharaf',
-                    username: '@radwan__sharaf',
-                    ariaLabel: 'Follow on Instagram'
-                },
-                { 
-                    name: 'WhatsApp', 
-                    url: 'https://wa.me/963934092005',
-                    username: '+963 934 092 005',
-                    ariaLabel: 'Message on WhatsApp'
-                }
-            ];
-            
-            return (
-                <section 
-                    id="contact" 
-                    className="section bg-gray-900/30"
-                    ref={sectionRef}
-                    role="region"
-                    aria-label="Contact information"
-                >
-                    <div className="container">
-                        {/* Section Header */}
-                        <div className={`max-w-4xl mx-auto mb-20 text-center ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-                            <div className="decorative-line mx-auto mb-6"></div>
-                            <h2 className="text-headline mb-6">
-                                Get In <span className="accent-text">Touch</span>
-                            </h2>
-                            <p className="text-body text-text-secondary">
-                                Have a project in mind? Let's build something amazing together
-                            </p>
-                        </div>
-                        
-                        <div className={`grid md:grid-cols-2 gap-12 max-w-6xl mx-auto ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                            {/* Contact Info */}
-                            <div className="space-y-8">
-                                {/* Email Card */}
-                                <div className="card">
-                                    <div className="mb-4">
-                                        <p className="text-mono text-xs text-text-secondary mb-2">EMAIL ADDRESS</p>
-                                        <p className="text-body text-mono mb-4">radwansharaf23@gmail.com</p>
-                                    </div>
-                                    <button
-                                        onClick={copyEmail}
-                                        className={`w-full py-3 text-mono text-sm border-2 transition-all ${
-                                            copied 
-                                                ? 'bg-accent border-accent text-white' 
-                                                : 'border-text-primary text-text-primary hover:bg-text-primary hover:text-bg-primary'
-                                        }`}
-                                        aria-label={copied ? 'Email address copied' : 'Copy email address'}
-                                    >
-                                        {copied ? '✓ COPIED' : 'COPY EMAIL'}
-                                    </button>
-                                </div>
-                                
-                                {/* Location Card */}
-                                <div className="card">
-                                    <p className="text-mono text-xs text-text-secondary mb-2">LOCATION</p>
-                                    <p className="text-title mb-4">Damascus, Syria</p>
-                                    <p className="text-body text-text-secondary">
-                                        Available for remote opportunities worldwide
-                                    </p>
-                                </div>
-                                
-                                {/* Social Links */}
-                                <div className="space-y-4">
-                                    <p className="text-mono text-xs text-text-secondary">CONNECT</p>
-                                    {socialLinks.map((link, index) => (
-                                        <a
-                                            key={index}
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="block card group"
-                                            aria-label={link.ariaLabel}
-                                        >
-                                            <div className="flex justify-between items-center">
-                                                <div>
-                                                    <p className="text-body mb-1 group-hover:text-accent transition-colors">{link.name}</p>
-                                                    <p className="text-mono text-xs text-text-secondary">{link.username}</p>
-                                                </div>
-                                                <svg 
-                                                    width="20" 
-                                                    height="20" 
-                                                    viewBox="0 0 24 24" 
-                                                    fill="none" 
-                                                    stroke="currentColor" 
-                                                    strokeWidth="2"
-                                                    className="text-accent opacity-0 group-hover:opacity-100 transition-opacity"
-                                                >
-                                                    <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                                                </svg>
-                                            </div>
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                            
-                            {/* Contact Form */}
-                            <form 
-                                className="card"
-                                onSubmit={handleSubmit}
-                                noValidate
-                                aria-label="Contact form"
-                            >
-                                <h3 className="text-title mb-8">Send a Message</h3>
-                                
-                                <div className="space-y-6">
-                                    {/* Name Input */}
-                                    <div>
-                                        <label 
-                                            htmlFor="name" 
-                                            className="block text-mono text-xs text-text-secondary mb-2"
-                                        >
-                                            YOUR NAME *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            value={formData.name}
-                                            onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                            className="w-full px-4 py-3 bg-transparent border border-gray-700 focus:border-accent text-text-primary outline-none transition-colors"
-                                            placeholder="John Doe"
-                                            aria-required="true"
-                                            aria-invalid={formErrors.name ? 'true' : 'false'}
-                                            aria-describedby={formErrors.name ? 'name-error' : undefined}
-                                        />
-                                        {formErrors.name && (
-                                            <p id="name-error" className="text-xs text-accent mt-1" role="alert">
-                                                {formErrors.name}
-                                            </p>
-                                        )}
-                                    </div>
-                                    
-                                    {/* Email Input */}
-                                    <div>
-                                        <label 
-                                            htmlFor="email" 
-                                            className="block text-mono text-xs text-text-secondary mb-2"
-                                        >
-                                            YOUR EMAIL *
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            value={formData.email}
-                                            onChange={(e) => setFormData({...formData, email: e.target.value})}
-                                            className="w-full px-4 py-3 bg-transparent border border-gray-700 focus:border-accent text-text-primary outline-none transition-colors"
-                                            placeholder="john@example.com"
-                                            aria-required="true"
-                                            aria-invalid={formErrors.email ? 'true' : 'false'}
-                                            aria-describedby={formErrors.email ? 'email-error' : undefined}
-                                        />
-                                        {formErrors.email && (
-                                            <p id="email-error" className="text-xs text-accent mt-1" role="alert">
-                                                {formErrors.email}
-                                            </p>
-                                        )}
-                                    </div>
-                                    
-                                    {/* Message Textarea */}
-                                    <div>
-                                        <label 
-                                            htmlFor="message" 
-                                            className="block text-mono text-xs text-text-secondary mb-2"
-                                        >
-                                            MESSAGE *
-                                        </label>
-                                        <textarea
-                                            id="message"
-                                            value={formData.message}
-                                            onChange={(e) => setFormData({...formData, message: e.target.value})}
-                                            rows="5"
-                                            className="w-full px-4 py-3 bg-transparent border border-gray-700 focus:border-accent text-text-primary outline-none resize-none transition-colors"
-                                            placeholder="Tell me about your project..."
-                                            aria-required="true"
-                                            aria-invalid={formErrors.message ? 'true' : 'false'}
-                                            aria-describedby={formErrors.message ? 'message-error' : undefined}
-                                        ></textarea>
-                                        {formErrors.message && (
-                                            <p id="message-error" className="text-xs text-accent mt-1" role="alert">
-                                                {formErrors.message}
-                                            </p>
-                                        )}
-                                    </div>
-                                    
-                                    {/* Submit Button */}
-                                    <button 
-                                        type="submit" 
-                                        className="btn btn-primary w-full justify-center"
-                                        aria-label="Send message"
-                                    >
-                                        SEND MESSAGE
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-            );
-        };
-
-        /* ============================================
-           FOOTER COMPONENT
-           ============================================ */
-        
-        const Footer = () => {
-            return (
-                <footer 
-                    className="section py-12 border-t border-gray-800"
-                    role="contentinfo"
-                >
-                    <div className="container">
-                        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                            <div className="text-center md:text-left">
-                                <p className="text-mono text-sm text-text-secondary mb-2">
-                                    © 2026 Radwan Sharaf. Crafted with passion & precision.
-                                </p>
-                                <p className="text-mono text-xs text-text-secondary">
-                                    Built with React • Tailwind CSS • Editorial Minimalism
-                                </p>
-                            </div>
-                            
-                            <a 
-                                href="#home" 
-                                className="text-mono text-sm text-accent hover:text-accent-muted transition-colors flex items-center gap-2"
-                                aria-label="Back to top"
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M12 19V5M5 12l7-7 7 7"/>
-                                </svg>
-                                BACK TO TOP
-                            </a>
-                        </div>
-                    </div>
-                </footer>
-            );
-        };
-
-        /* ============================================
-           MAIN APP COMPONENT
-           ============================================ */
-        
-        function Portfolio() {
-            useEffect(() => {
-                // Performance: Lazy load images
-                if ('loading' in HTMLImageElement.prototype) {
-                    const images = document.querySelectorAll('img[loading="lazy"]');
-                    images.forEach(img => {
-                        img.src = img.dataset.src;
+                // Fewer particles on mobile for performance
+                const count = window.innerWidth < 600 ? 40 : 80;
+                const particles = Array.from({ length: count }, () => new Particle());
+                const animate = () => {
+                    ctx.fillStyle = 'rgba(10,15,28,0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach((p, i) => {
+                        p.update(); p.draw();
+                        particles.slice(i + 1).forEach(p2 => {
+                            const dx = p.x - p2.x, dy = p.y - p2.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 120) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(0,255,255,${0.12 * (1 - dist / 120)})`;
+                                ctx.lineWidth = 0.8;
+                                ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                            }
+                        });
                     });
-                }
-                
-                // Accessibility: Skip to main content link
-                const skipLink = document.createElement('a');
-                skipLink.href = '#home';
-                skipLink.className = 'sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white';
-                skipLink.textContent = 'Skip to main content';
-                document.body.insertBefore(skipLink, document.body.firstChild);
-                
-                return () => {
-                    if (skipLink.parentNode) {
-                        skipLink.parentNode.removeChild(skipLink);
+                    animationId = requestAnimationFrame(animate);
+                };
+                animate();
+                return () => { window.removeEventListener('resize', resize); cancelAnimationFrame(animationId); };
+            }, []);
+            return null;
+        };
+
+        /* ════════════════════════════════════════
+           NAVIGATION — with mobile hamburger
+        ════════════════════════════════════════ */
+        const Navigation = () => {
+            const [scrolled, setScrolled] = useState(false);
+            const [active, setActive] = useState('home');
+            const [menuOpen, setMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setScrolled(window.scrollY > 50);
+                    const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+                    for (const id of sections) {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            const rect = el.getBoundingClientRect();
+                            if (rect.top <= 150 && rect.bottom >= 150) { setActive(id); break; }
+                        }
                     }
                 };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
             }, []);
-            
+
+            // Prevent body scroll when menu is open
+            useEffect(() => {
+                document.body.style.overflow = menuOpen ? 'hidden' : '';
+                return () => { document.body.style.overflow = ''; };
+            }, [menuOpen]);
+
+            const links = [
+                { id: 'home', name: 'Home', icon: '🏠' },
+                { id: 'about', name: 'About', icon: '👤' },
+                { id: 'skills', name: 'Skills', icon: '⚡' },
+                { id: 'projects', name: 'Projects', icon: '💼' },
+                { id: 'contact', name: 'Contact', icon: '📧' }
+            ];
+
+            const handleNavClick = (id) => {
+                setActive(id);
+                setMenuOpen(false);
+                setTimeout(() => {
+                    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                }, 50);
+            };
+
             return (
-                <div className="bg-bg-primary text-text-primary">
-                    <Navigation />
-                    <main role="main">
-                        <HeroSection />
-                        <AboutSection />
-                        <SkillsSection />
-                        <WorkSection />
-                        <ContactSection />
-                    </main>
-                    <Footer />
+                <>
+                    <nav className={scrolled ? 'scrolled' : ''}>
+                        <div className="nav-container">
+                            <div className="nav-logo">RS</div>
+
+                            {/* Desktop links */}
+                            <div className="nav-links">
+                                {links.map(link => (
+                                    <a key={link.id} href={`#${link.id}`}
+                                        className={`nav-link ${active === link.id ? 'active' : ''}`}>
+                                        <span>{link.icon}</span><span>{link.name}</span>
+                                    </a>
+                                ))}
+                            </div>
+
+                            {/* Hamburger */}
+                            <button
+                                className={`hamburger ${menuOpen ? 'open' : ''}`}
+                                onClick={() => setMenuOpen(o => !o)}
+                                aria-label="Toggle menu"
+                            >
+                                <span></span><span></span><span></span>
+                            </button>
+                        </div>
+                    </nav>
+
+                    {/* Mobile full-screen menu */}
+                    <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+                        <button className="mobile-close" onClick={() => setMenuOpen(false)}>✕</button>
+                        {links.map(link => (
+                            <button
+                                key={link.id}
+                                className={`mobile-nav-link ${active === link.id ? 'active' : ''}`}
+                                onClick={() => handleNavClick(link.id)}
+                                style={{ background: 'none', fontFamily: 'Orbitron,sans-serif' }}
+                            >
+                                <span>{link.icon}</span><span>{link.name}</span>
+                            </button>
+                        ))}
+                    </div>
+                </>
+            );
+        };
+
+        /* ── Hero ── */
+        const Hero = () => {
+            const [text, setText] = useState('');
+            const [index, setIndex] = useState(0);
+            const phrases = ['Flutter Developer', 'Python Developer', 'AI Enthusiast', 'Security Researcher'];
+            useEffect(() => {
+                let i = 0, isDeleting = false, timeout;
+                const type = () => {
+                    const current = phrases[index];
+                    if (!isDeleting) {
+                        setText(current.substring(0, i + 1)); i++;
+                        if (i === current.length) { isDeleting = true; timeout = setTimeout(type, 2000); return; }
+                        timeout = setTimeout(type, 80);
+                    } else {
+                        setText(current.substring(0, i - 1)); i--;
+                        if (i === 0) { isDeleting = false; setIndex(prev => (prev + 1) % phrases.length); }
+                        timeout = setTimeout(type, 40);
+                    }
+                };
+                type();
+                return () => clearTimeout(timeout);
+            }, [index]);
+
+            return (
+                <section id="home" className="hero">
+                    <div className="hero-orb hero-orb-1"></div>
+                    <div className="hero-orb hero-orb-2"></div>
+                    <div className="hero-content">
+                        <div className="hero-badge">🚀 Available for Opportunities</div>
+                        <h1 className="hero-title orbitron">
+                            <span style={{ color: '#fff' }}>Building </span>
+                            <span className="gradient-text neon-text">Secure</span><br />
+                            <span className="gradient-text">Mobile Experiences</span>
+                        </h1>
+                        <p className="hero-subtitle mono">
+                            I am <span className="gradient-text neon-text" style={{ fontWeight: 800 }}>Radwan Sharaf</span>
+                        </p>
+                        <div className="typing-text mono">
+                            {text}<span style={{ animation: 'pulse 1s infinite' }}>|</span>
+                        </div>
+                        <div className="hero-buttons">
+                            <a href="#projects" className="btn btn-primary"><span>View My Work</span><span>→</span></a>
+                            <a href="#contact" className="btn btn-secondary"><span>Let's Talk</span><span>💬</span></a>
+                        </div>
+                        <div className="hero-icon">
+                            <div className="rotating-border">
+                                <div className="rotating-ring">
+                                    <div className="ring-1"></div><div className="ring-2"></div><div className="ring-3"></div>
+                                </div>
+                                <svg viewBox="0 0 100 100" style={{ position: 'relative', zIndex: 10 }}>
+                                    <rect x="30" y="15" width="30" height="50" rx="3" fill="none" stroke="#00ffff" strokeWidth="2.5" />
+                                    <line x1="30" y1="58" x2="60" y2="58" stroke="#00ffff" strokeWidth="2.5" />
+                                    <circle cx="45" cy="61" r="2.5" fill="#00ffff" />
+                                    <path d="M 50 75 L 65 68 L 65 50 L 50 43 L 35 50 L 35 68 Z" fill="none" stroke="#00ff00" strokeWidth="2.5" />
+                                    <path d="M 50 50 L 50 70 M 42 58 L 50 65 L 58 55" stroke="#00ff00" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div className="stats-grid">
+                            {[
+                                { icon: '🚀', number: '6+', label: 'Projects' },
+                                { icon: '⏱️', number: '4+', label: 'Years Exp' },
+                                { icon: '⚡', number: '16+', label: 'Tech Skills' },
+                                { icon: '🏆', number: '#2', label: 'Syria Rank' }
+                            ].map((stat, i) => (
+                                <div key={i} className="stat-card">
+                                    <div className="stat-icon">{stat.icon}</div>
+                                    <div className="stat-number">{stat.number}</div>
+                                    <div className="stat-label">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ── About ── */
+        const About = () => (
+            <section id="about">
+                <div className="container">
+                    <div className="section-header">
+                        <div className="section-badge">📖 Get to know me</div>
+                        <h2 className="section-title orbitron">About <span className="gradient-text">Me</span></h2>
+                        <p className="section-description">Passionate about creating secure, scalable applications</p>
+                    </div>
+                    <div className="about-grid">
+                        <div className="card">
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+                                <div style={{ fontSize: '2.5rem' }}>🎓</div>
+                                <div>
+                                    <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Education</h3>
+                                    <p style={{ color: '#9ca3af', fontSize: '0.9rem' }}>Yarmouk Private University</p>
+                                </div>
+                            </div>
+                            <p style={{ color: '#d1d5db', lineHeight: '1.8', fontSize: '0.95rem' }}>
+                                <span className="gradient-text" style={{ fontWeight: 700 }}>4th-year Information Engineering</span> student
+                                specializing in mobile development, Python automation, Telegram bot architecture,
+                                and local AI integration. Building applications that are beautiful, performant, secure, and privacy-first.
+                            </p>
+                        </div>
+                        <div className="card">
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+                                <div style={{ fontSize: '2.5rem' }}>🏆</div>
+                                <div>
+                                    <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Achievement</h3>
+                                    <p style={{ color: '#9ca3af', fontSize: '0.9rem' }}>Favikon Ranking (2025)</p>
+                                </div>
+                            </div>
+                            <div style={{ marginBottom: '0.85rem' }}>
+                                <div className="gradient-text orbitron" style={{ fontSize: '2.2rem', fontWeight: 900 }}>#2</div>
+                                <p style={{ color: '#d1d5db', fontWeight: 600 }}>Mobile & Telecommunication</p>
+                                <p style={{ color: '#9ca3af', fontSize: '0.88rem' }}>Content Creator in Syria</p>
+                            </div>
+                            <div>
+                                <div className="gradient-text orbitron" style={{ fontSize: '1.8rem', fontWeight: 900 }}>#31</div>
+                                <p style={{ color: '#d1d5db', fontWeight: 600 }}>IT Categories</p>
+                                <p style={{ color: '#9ca3af', fontSize: '0.88rem' }}>Content Creator in Syria</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        );
+
+        /* ── Skills ── */
+        const Skills = () => {
+            const skills = [
+                { name: 'Flutter', level: 'Advanced', icon: '📱', from: '#22d3ee', to: '#3b82f6' },
+                { name: 'Dart', level: 'Advanced', icon: '🎯', from: '#60a5fa', to: '#22d3ee' },
+                { name: 'Python', level: 'Advanced', icon: '🐍', from: '#22c55e', to: '#10b981' },
+                { name: 'GetX', level: 'Advanced', icon: '⚡', from: '#a78bfa', to: '#ec4899' },
+                { name: 'Bloc', level: 'Advanced', icon: '🧊', from: '#fb923c', to: '#ef4444' },
+                { name: 'Flask', level: 'Advanced', icon: '🌶️', from: '#6b7280', to: '#374151' },
+                { name: 'aiogram', level: 'Advanced', icon: '🤖', from: '#0088cc', to: '#22d3ee' },
+                { name: 'REST APIs', level: 'Advanced', icon: '🌐', from: '#2dd4bf', to: '#22d3ee' },
+                { name: 'SQLite', level: 'Advanced', icon: '💾', from: '#818cf8', to: '#a78bfa' },
+                { name: 'Ollama', level: 'Intermediate', icon: '🧠', from: '#8b5cf6', to: '#d946ef' },
+                { name: 'LLMs', level: 'Intermediate', icon: '🔮', from: '#ec4899', to: '#f43f5e' },
+                { name: 'Async/Await', level: 'Advanced', icon: '⚡', from: '#06b6d4', to: '#0ea5e9' },
+                { name: 'Git', level: 'Advanced', icon: '📦', from: '#f97316', to: '#dc2626' },
+                { name: 'Linux', level: 'Advanced', icon: '🐧', from: '#fbbf24', to: '#f97316' },
+                { name: 'Nmap', level: 'Intermediate', icon: '🔍', from: '#22c55e', to: '#84cc16' },
+                { name: 'Burp Suite', level: 'Intermediate', icon: '🛡️', from: '#ef4444', to: '#fb923c' }
+            ];
+            return (
+                <section id="skills">
+                    <div className="container">
+                        <div className="section-header">
+                            <div className="section-badge">⚡ What I bring</div>
+                            <h2 className="section-title orbitron">Technical <span className="gradient-text">Arsenal</span></h2>
+                            <p className="section-description">Comprehensive toolkit for world-class applications</p>
+                        </div>
+                        <div className="skills-wrapper">
+                            {skills.map((skill, i) => (
+                                <div key={i} className="skill-badge"
+                                    style={{ '--color-from': skill.from, '--color-to': skill.to }}>
+                                    <span className="skill-icon">{skill.icon}</span>
+                                    <span className="skill-name">{skill.name}</span>
+                                    <span className="skill-level">({skill.level})</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ── Projects ── */
+        const Projects = () => {
+            const projects = [
+                { title: 'Damascus Doctors', icon: '🏥', description: 'Dual-interface healthcare platform with Telegram bot and web dashboard. Smart search, FSM flow, real-time sync. 50+ doctors, <500ms response.', tech: ['Python', 'Flask', 'SQLite', 'Aiogram'], features: ['Smart Search', 'Admin Panel', 'Real-time'], from: '#0e7490', to: '#155e75', github: 'https://t.me/syriandoctors_bot' },
+                { title: 'AI Summarizer', icon: '🧠', description: 'Privacy-first text summarization using local LLMs. Zero-latency with Gemma 2 and Qwen 2. Automatic language detection (Arabic/English).', tech: ['Python', 'Ollama', 'LLMs', 'NLP'], features: ['Privacy-First', 'Multilingual', 'Zero Latency'], from: '#6366f1', to: '#4f46e5', github: 'https://github.com/radwan-sharaf' },
+                { title: 'Todo & GPA App', icon: '✅', description: 'Multi-functional productivity app with local persistence, GPA calculator, adaptive themes. GetX state management and clean architecture.', tech: ['Flutter', 'GetX', 'Sqflite'], features: ['Task Management', 'GPA Calc', 'Themes'], from: '#7c3aed', to: '#6d28d9', github: 'https://github.com/radwan-sharaf/Todo-App' },
+                { title: 'Moviezone App', icon: '🎬', description: 'Movie discovery with TMDB API. Bloc pattern, favorites system, detailed cast info. Clean architecture implementation.', tech: ['Flutter', 'Bloc', 'TMDB API'], features: ['Trending', 'Favorites', 'Cast Info'], from: '#0891b2', to: '#0e7490', github: 'https://github.com/radwan-sharaf' },
+                { title: 'Tasamimi App', icon: '📲', description: 'Production mobile app from internship. Complex UI, GetX state management, seamless API integration with Dio.', tech: ['Flutter', 'GetX', 'Dio'], features: ['Clean Code', 'API Integration', 'State Mgmt'], from: '#d97706', to: '#b45309', github: 'https://github.com/radwan-sharaf' },
+                { title: 'File Organizer', icon: '📁', description: 'Python automation tool for intelligent file categorization with pattern recognition. Enhanced productivity through automation.', tech: ['Python', 'OS', 'Shutil'], features: ['Auto-organize', 'Smart Patterns', 'Fast'], from: '#dc2626', to: '#b91c1c', github: 'https://github.com/radwan-sharaf' }
+            ];
+            return (
+                <section id="projects">
+                    <div className="container">
+                        <div className="section-header">
+                            <div className="section-badge">💼 My work</div>
+                            <h2 className="section-title orbitron">Featured <span className="gradient-text">Projects</span></h2>
+                            <p className="section-description">Real-world solutions with cutting-edge tech</p>
+                        </div>
+                        <div className="projects-grid">
+                            {projects.map((project, i) => (
+                                <div key={i} className="project-card"
+                                    style={{ '--gradient-from': project.from, '--gradient-to': project.to }}>
+                                    <div className="project-header">
+                                        <div className="project-icon">{project.icon}</div>
+                                        <h3 className="project-title">{project.title}</h3>
+                                    </div>
+                                    <p className="project-description">{project.description}</p>
+                                    <div className="project-features">
+                                        {project.features.map((f, j) => <span key={j} className="feature-tag">✓ {f}</span>)}
+                                    </div>
+                                    <div className="project-tech">
+                                        {project.tech.map((t, j) => <span key={j} className="tech-tag">{t}</span>)}
+                                    </div>
+                                    <div className="project-footer">
+                                        <a href={project.github} target="_blank" rel="noopener noreferrer"
+                                            className="github-btn" title="View on GitHub">
+                                            <GitHubIcon /><span>View on GitHub</span><span className="btn-arrow">→</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ── Contact Form ── */
+        const ContactForm = () => {
+            const MAX = 500;
+            const [form, setForm] = useState({ name: '', email: '', message: '' });
+            const [errors, setErrors] = useState({});
+            const [status, setStatus] = useState(null);
+
+            const validate = () => {
+                const e = {};
+                if (!form.name.trim()) e.name = 'Name is required';
+                if (!form.email.trim()) { e.email = 'Email is required'; }
+                else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { e.email = 'Invalid email'; }
+                if (!form.message.trim()) e.message = 'Message is required';
+                else if (form.message.length < 10) e.message = 'Too short (min 10 chars)';
+                return e;
+            };
+
+            const handleChange = (e) => {
+                const { name, value } = e.target;
+                if (name === 'message' && value.length > MAX) return;
+                setForm(prev => ({ ...prev, [name]: value }));
+                if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+            };
+
+            const handleSubmit = () => {
+                const e = validate();
+                if (Object.keys(e).length > 0) { setErrors(e); return; }
+                setStatus('sending');
+                const subject = encodeURIComponent(`Portfolio Contact from ${form.name}`);
+                const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
+                window.location.href = `mailto:radwansharaf23@gmail.com?subject=${subject}&body=${body}`;
+                setTimeout(() => {
+                    setStatus('success');
+                    setForm({ name: '', email: '', message: '' });
+                    setTimeout(() => setStatus(null), 5000);
+                }, 800);
+            };
+
+            const charsLeft = MAX - form.message.length;
+            const errStyle = { borderColor: 'rgba(255,80,80,0.6)' };
+
+            return (
+                <div className="contact-form-wrapper">
+                    <div className="contact-form-card">
+                        <div className="form-title orbitron">
+                            <span>✉️</span>
+                            <span>Send a <span className="gradient-text">Message</span></span>
+                        </div>
+                        <p className="form-subtitle">Fill in the form and I'll get back to you as soon as possible.</p>
+
+                        <div className="form-grid">
+                            {/* Name */}
+                            <div className="form-group">
+                                <label className="form-label">👤 Name <span className="required">*</span></label>
+                                <input className="form-input" type="text" name="name"
+                                    value={form.name} onChange={handleChange}
+                                    placeholder="Your full name"
+                                    style={errors.name ? errStyle : {}} />
+                                {errors.name && <span style={{ color: '#ff8080', fontSize: '0.76rem' }}>⚠ {errors.name}</span>}
+                            </div>
+
+                            {/* Email */}
+                            <div className="form-group">
+                                <label className="form-label">📧 Email <span className="required">*</span></label>
+                                <input className="form-input" type="email" name="email"
+                                    value={form.email} onChange={handleChange}
+                                    placeholder="your@email.com"
+                                    style={errors.email ? errStyle : {}} />
+                                {errors.email && <span style={{ color: '#ff8080', fontSize: '0.76rem' }}>⚠ {errors.email}</span>}
+                            </div>
+
+                            {/* Message */}
+                            <div className="form-group full">
+                                <label className="form-label">💬 Message <span className="required">*</span></label>
+                                <textarea className="form-textarea" name="message"
+                                    value={form.message} onChange={handleChange}
+                                    placeholder="Tell me about your project, idea, or just say hello..."
+                                    style={errors.message ? errStyle : {}} />
+                                {errors.message && <span style={{ color: '#ff8080', fontSize: '0.76rem' }}>⚠ {errors.message}</span>}
+                            </div>
+                        </div>
+
+                        <div className="form-footer">
+                            <span className={`char-count ${charsLeft < 60 ? 'warn' : ''}`}>
+                                {charsLeft} / {MAX} chars remaining
+                            </span>
+                            <button className="btn-send" onClick={handleSubmit} disabled={status === 'sending'}>
+                                {status === 'sending' ? (
+                                    <><span style={{ display: 'inline-block', width: 14, height: 14, border: '2px solid #0a0f1c', borderTop: '2px solid transparent', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }}></span><span>Sending…</span></>
+                                ) : (
+                                    <><span>Send Message</span><span className="send-icon">🚀</span></>
+                                )}
+                            </button>
+                        </div>
+
+                        {status === 'success' && (
+                            <div className="form-toast success">✅ Your email client has opened — thanks for reaching out!</div>
+                        )}
+                        {status === 'error' && (
+                            <div className="form-toast error">❌ Something went wrong. Please try again or email directly.</div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        /* ── Contact Section ── */
+        const Contact = () => {
+            const [copied, setCopied] = useState(false);
+            const copy = () => {
+                navigator.clipboard.writeText('radwansharaf23@gmail.com');
+                setCopied(true); setTimeout(() => setCopied(false), 2000);
+            };
+            const socials = [
+                { name: 'LinkedIn', url: 'https://www.linkedin.com/in/radwansharaf', icon: '💼', user: '@radwansharaf' },
+                { name: 'Instagram', url: 'https://www.instagram.com/radwan__sharaf', icon: '📷', user: '@radwan__sharaf' },
+                { name: 'WhatsApp', url: 'https://wa.me/963934092005', icon: '💬', user: '+963 934 092 005' }
+            ];
+            return (
+                <section id="contact">
+                    <div className="container">
+                        <div className="section-header">
+                            <div className="section-badge">📧 Let's connect</div>
+                            <h2 className="section-title orbitron">Get In <span className="gradient-text">Touch</span></h2>
+                            <p className="section-description">Have a project? Let's build something amazing</p>
+                        </div>
+
+                        <div className="contact-grid">
+                            <div className="contact-card">
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                                    <div style={{ fontSize: '2.5rem' }}>📧</div>
+                                    <div>
+                                        <p style={{ color: '#9ca3af', fontSize: '0.85rem', marginBottom: '0.2rem' }}>Email</p>
+                                        <p className="mono" style={{ fontSize: '1rem', fontWeight: 600, wordBreak: 'break-all' }}>radwansharaf23@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button onClick={copy} className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                                    {copied ? '✓ Copied!' : 'Copy Email'}
+                                </button>
+                            </div>
+                            <div className="contact-card">
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.85rem' }}>
+                                    <div style={{ fontSize: '2.5rem' }}>📍</div>
+                                    <div>
+                                        <p style={{ color: '#9ca3af', fontSize: '0.85rem', marginBottom: '0.2rem' }}>Location</p>
+                                        <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>Damascus, Syria</p>
+                                    </div>
+                                </div>
+                                <p style={{ color: '#9ca3af', fontSize: '0.95rem' }}>Available for remote opportunities 🌍</p>
+                            </div>
+                        </div>
+
+                        <ContactForm />
+
+                        <div style={{ marginTop: '3rem' }}>
+                            <h3 className="orbitron" style={{ fontSize: 'clamp(1.4rem,4vw,2rem)', fontWeight: 900, marginBottom: '1.5rem', textAlign: 'center' }}>
+                                Connect on <span className="gradient-text">Social</span>
+                            </h3>
+                            <div className="social-grid">
+                                {socials.map((s, i) => (
+                                    <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" className="social-link">
+                                        <div className="social-icon">{s.icon}</div>
+                                        <h4 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.4rem' }}>{s.name}</h4>
+                                        <p style={{ color: '#9ca3af', fontSize: '0.9rem' }}>{s.user}</p>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        /* ── Footer ── */
+        const Footer = () => (
+            <footer>
+                <div className="footer-content">
+                    <div className="mono" style={{ color: '#9ca3af', fontSize: '0.88rem' }}>
+                        © 2026 Radwan Sharaf. Designed with code & security in mind.
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                        {[0, 0.3, 0.6].map((d, i) => (
+                            <span key={i} className="gradient-text"
+                                style={{ fontSize: '1.3rem', animation: `pulse 2s ${d}s infinite` }}>▶</span>
+                        ))}
+                    </div>
+                </div>
+            </footer>
+        );
+
+        /* ── App Root ── */
+        function App() {
+            return (
+                <>
+                    <ParticleSystem />
+                    <Navigation />
+                    <Hero />
+                    <About />
+                    <Skills />
+                    <Projects />
+                    <Contact />
+                    <Footer />
+                </>
             );
         }
 
-        /* ============================================
-           RENDER APPLICATION
-           ============================================ */
-        
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<Portfolio />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
+
 </html>
